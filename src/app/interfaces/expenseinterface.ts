@@ -4,4 +4,5 @@ export interface ExpenseInterface {
     type: string;
     createdOn: Date;
     date: string;
+    category: string;
 }
