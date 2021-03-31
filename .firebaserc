@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "expense-tracker-6f096": {
+      "hosting": {
+        "app": [
+          "expense-tracker-6f096"
+        ]
+      }
+    }
+  }
+}

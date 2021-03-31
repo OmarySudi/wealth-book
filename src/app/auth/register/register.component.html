@@ -1,0 +1,41 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content>
+ <ion-card class="ion-no-margin">
+   <ion-card-header>
+    <ion-card-title class="ion-text-center">Register</ion-card-title>
+   </ion-card-header>
+ 
+   <ion-card-content>
+
+    <form [formGroup]="registrationForm" (ngSubmit)="doRegister()">
+      <ion-item-group>
+        <ion-item lines="full">
+          <ion-input type="text" placeholder="Name" formControlName="name"></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+         <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+         <ion-input [type]="showPassword?'text':'password'" placeholder="Password" formControlName="password"></ion-input>
+         <ion-icon [name]="showPassword? 'eye-off':'eye'" (click)="toggleShowPassword()"></ion-icon>
+        </ion-item>
+       <ion-item lines="full">
+        <ion-input [type]="showConfirmPassword?'text':'password'" placeholder="Confirm Password" formControlName="passwordConfirm"></ion-input>
+        <ion-icon [name]="showConfirmPassword? 'eye-off':'eye'" (click)="toggleShowConfirmPassword()"></ion-icon>
+       </ion-item>
+
+       <ion-button class="ion-margin-top" expand="block" fill="solid" type="submit" [disabled]="!registrationForm.valid">Register</ion-button>
+       <ion-button fill="outline" [routerLink]="['/auth/login']" color="success">Login</ion-button>
+      </ion-item-group>
+ 
+     
+    </form>
+    
+   </ion-card-content>
+ </ion-card>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Expense</ion-title>
+    <ion-button (click)="dismiss()" slot="end" fill="outline" color="danger">
+      <ion-icon  name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="editExpenseForm">
+    <ion-label position="floating" color="danger" *ngIf="editExpenseForm.controls.amount.invalid && editExpenseForm.controls.amount.touched">
+      Amount is not valid
+    </ion-label>
+    <ion-item>
+      <ion-input placeholder="amount" type="number" inputmode="decimal" formControlName="amount"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-input placeholder="description" type="text" formControlName="description"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Select type</ion-label>
+      <ion-select value="brown" okText="Ok" cancelText="Cancel" formControlName="type" interface="popover">
+          <ion-select-option [value]="type.value" *ngFor="let type of expenseTypes | keyvalue">{{ type.value}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button (click)="editExpense()"  [disabled]="!editExpenseForm.valid" size="large" expand="block" fill="solid" >Save</ion-button>
+   
+  </form>
+</ion-content>

@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-card style="margin-left:0px;margin-right:0px">
+      <ion-card-header color="primary">
+        <ion-row>
+          <ion-col size="6">
+
+            <ion-card-title>
+              Total: {{todayTotalExpenses | currency:'USD'}}
+            </ion-card-title>
+      
+            <ion-card-subtitle>
+              {{ selectedDate | date}}
+            </ion-card-subtitle>
+          </ion-col>
+
+          <ion-col size="6">
+          
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+  
+      <ion-footer>
+        <ion-row>
+  
+          <ion-col size="3">
+            <ion-button (click)="setCurrentToTodayDate()" expand="full" fill="solid">Today</ion-button>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button (click)="select.open()" expand="full" fill="solid" color="primary">Date</ion-button>
+
+            <ion-item lines="none">
+              <ion-datetime hidden
+
+              #select
+              [value]="selectedDate.toISOString()"
+              (ionChange)="changeSelectedDate(select.value)"
+              min="2020" 
+              [max]="todayDate.toISOString()"
+              >
+                
+              </ion-datetime>
+  
+            </ion-item>
+  
+        
+          </ion-col>
+          <ion-col size="3">
+            <ion-button  expand="full" fill="solid" (click)="selectedValue.open()">Type</ion-button>
+            <ion-item hidden>
+              <ion-select  formControlName="type" interface="popover" #selectedValue>
+                  <ion-select-option [value]="type.value" *ngFor="let type of expenseTypes | keyvalue">{{ type.value}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-col>
+          <ion-col size="3">
+            <ion-button  expand="full" (click)="priceFilter()" fill="solid">
+              <ion-icon name="logo-usd"></ion-icon>
+              <ion-icon *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
+            </ion-button>
+          </ion-col>
+  
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let expense of expenses | catagory: selectedValue.value">
+
+    <ion-toolbar color="primary">
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-icon size="large" name="help-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="presentEditModal(expense)">
+          <ion-icon size="large" name="pencil-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-title>$ {{expense.amount}}</ion-title>
+    </ion-toolbar>
+
+    <ion-card-content>
+
+      <ion-text>
+        {{expense.description}}
+      </ion-text>
+    
+      <ion-footer>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">{{expense.createdOn | date}}</ion-col>
+            <ion-col size="6">{{expense.type}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+
+    </ion-card-content>
+  </ion-card>
+
+   <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="presentModal()" color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
