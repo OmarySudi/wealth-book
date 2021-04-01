@@ -3,20 +3,27 @@
     <ion-card style="margin-left:0px;margin-right:0px">
       <ion-card-header color="primary">
         <ion-row>
-          <ion-col size="6">
+          <ion-col size="8">
 
-            <ion-card-title>
-              Total: {{todayTotalExpenses | currency:'USD'}}
-            </ion-card-title>
+            <ion-text>
+              <h6>Daily Expenses: {{todayTotalExpenses | currency:'USD'}}</h6>
+            </ion-text>
+
+            <!-- <ion-card-subtitle>
+              Total Returns: {{todayTotalReturns | currency:'USD'}}
+            </ion-card-subtitle> -->
+            <ion-text>
+              <h6>Daily Returns: {{todayTotalReturns | currency:'USD'}}</h6>
+            </ion-text>
       
+          </ion-col>
+
+          <ion-col size="4">
             <ion-card-subtitle>
               {{ selectedDate | date}}
             </ion-card-subtitle>
           </ion-col>
 
-          <ion-col size="6">
-          
-          </ion-col>
         </ion-row>
       </ion-card-header>
   

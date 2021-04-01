@@ -25,6 +25,8 @@ export class DashboardComponent implements OnInit,OnDestroy{
   subscription: SubscriptionLike;
   dateSubscription: SubscriptionLike;
   todayTotalExpensesSubscription: SubscriptionLike;
+  todayTotalReturnsSubscription: SubscriptionLike;
+  todayTotalReturns: number;
   todayTotalExpenses: number;
   todayDate: Date;
   installDate: Date;
@@ -97,7 +99,17 @@ export class DashboardComponent implements OnInit,OnDestroy{
         error: (error)=>{console.log(error)},
         complete: ()=>{}
       });
-   
+
+    this.todayTotalReturnsSubscription = this.dataservice.getTodayTotalReturnsSubscription()
+    .subscribe({
+      next: (total: number)=>{
+        this.todayTotalReturns = total;
+      },
+      error: (error)=>{console.log(error);
+      },
+      complete: ()=>{}
+    })
+
     this.subscription = this.dataservice.getExpensesSubscription()
       .subscribe({
         next: (expenses: ExpenseInterface[])=>{
@@ -252,6 +264,7 @@ getAllExpenses(date?: Date){
         console.log(data);
         this.expenses = data;
         this.dataservice.setExpenesTotalAmount(data);
+        this.dataservice.setReturnsTotalAMount(data);
 
       }else{
 
