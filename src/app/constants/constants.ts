@@ -21,5 +21,4 @@ export enum CreditTypes{
     Salary = "Salary",
     Business = "Business",
     Other = "Other"
-
 }
