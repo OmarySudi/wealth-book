@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActionService } from 'src/app/services/action/action.service';
 import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { ExpenseTypes } from 'src/app/constants/constants';
+import { Category } from 'src/app/constants/constants';
+import { CreditTypes } from 'src/app/constants/constants';
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import {NotificationService} from 'src/app/services/notification/notification.service'
 
@@ -19,9 +21,14 @@ export class AddExpenseComponent implements OnInit {
     amount: new FormControl('',Validators.required),
     description: new FormControl(''),
     type: new FormControl('',Validators.required),
+    category: new FormControl('',Validators.required),
   });
 
   expenseTypes: any;
+  creditTypes: any;
+  category: any;
+  isExpense: boolean;
+  isReturn: boolean;
 
   constructor(
     private modalController:ModalController,
@@ -31,6 +38,10 @@ export class AddExpenseComponent implements OnInit {
     ) { 
     
       this.expenseTypes = ExpenseTypes;
+      this.category = Category;
+      this.creditTypes = CreditTypes;
+      this.isExpense = false;
+      this.isReturn = false;
   }
 
  
@@ -69,6 +80,24 @@ export class AddExpenseComponent implements OnInit {
     this.modalController.dismiss({
       'dismissed': true
     });
+  }
+
+  test(){
+    console.log("hello");
+    
+  }
+
+  showCategoryMenu(){
+
+    let expense: ExpenseInterface = this.addExpenseForm.value;
+  
+    if(expense.category == "Return"){
+      this.isReturn = true;
+      this.isExpense = false;
+    }else {
+      this.isReturn = false;
+      this.isExpense = true;
+    }
   }
 
 }

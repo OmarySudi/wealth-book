@@ -4,9 +4,22 @@ export enum StorageKeys{
 
 export enum ExpenseTypes{
 
-    All =0,
-    General =1,
-    Shopping =2,
-    Movie =3,
-    Dinner =4
+    All ="All",
+    General ="General",
+    Shopping ="Shopping",
+    Movie ="Movie",
+    Dinner = "Dinner"
+}
+
+export enum Category{
+
+    Return = "Return",
+    Expense  = "Expense",
+}
+
+export enum CreditTypes{
+    Salary = "Salary",
+    Business = "Business",
+    Other = "Other"
+
 }
