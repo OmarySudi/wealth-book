@@ -138,6 +138,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
         'type': expense.type,
         'key': expense.key,
         'date': expense.date,
+        'category': expense.category,
       }
     });
     return await modal.present();

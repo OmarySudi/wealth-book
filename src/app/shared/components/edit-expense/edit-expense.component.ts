@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExpenseTypes } from 'src/app/constants/constants';
+import { CreditTypes } from 'src/app/constants/constants';
 import { ModalController } from '@ionic/angular';
 import { ActionService } from 'src/app/services/action/action.service';
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
@@ -15,6 +16,9 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 export class EditExpenseComponent implements OnInit {
 
   expenseTypes: any;
+  creditTypes: any;
+  
+
 
   constructor(
     private modalController: ModalController,
@@ -23,6 +27,7 @@ export class EditExpenseComponent implements OnInit {
     ) {
 
     this.expenseTypes = ExpenseTypes;
+    this.creditTypes = CreditTypes;
    }
 
     // Data passed in by componentProps
@@ -31,6 +36,7 @@ export class EditExpenseComponent implements OnInit {
     @Input() type: string;
     @Input() date: string;
     @Input() key: string;
+    @Input() category: string;
 
  
     editExpenseForm = new FormGroup({
