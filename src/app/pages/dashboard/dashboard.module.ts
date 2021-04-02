@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IonicModule } from '@ionic/angular';
 import { CatagoryPipe } from 'src/app/pipes/catagory.pipe';
+import { CategoryPipe} from 'src/app/pipes/category.pipe';
 
 // const routes: Routes = [
 //   {
@@ -16,7 +17,7 @@ import { CatagoryPipe } from 'src/app/pipes/catagory.pipe';
 // ];
 
 @NgModule({
-  declarations: [DashboardComponent,CatagoryPipe],
+  declarations: [DashboardComponent,CatagoryPipe,CategoryPipe],
   imports: [
     CommonModule,
     IonicModule,

@@ -52,7 +52,7 @@
   
         
           </ion-col>
-          <ion-col size="3">
+          <ion-col size="2">
             <ion-button  expand="full" fill="solid" (click)="selectedValue.open()">Type</ion-button>
             <ion-item hidden>
               <ion-select  formControlName="type" interface="popover" #selectedValue>
@@ -66,11 +66,18 @@
             </ion-item>
 
           </ion-col>
-          <ion-col size="3">
-            <ion-button  expand="full" (click)="priceFilter()" fill="solid">
+          <ion-col size="4">
+            <!-- <ion-button  expand="full" (click)="priceFilter()" fill="solid">
               <ion-icon name="logo-usd"></ion-icon>
               <ion-icon *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
-            </ion-button>
+            </ion-button> -->
+            <ion-button  expand="full" fill="solid" (click)="selectedCategoryValue.open()">Category</ion-button>
+            <ion-item hidden>
+              <ion-select  formControlName="category" interface="popover" #selectedCategoryValue>
+                  <ion-select-option  value="All">All</ion-select-option>
+                  <ion-select-option  [value]="name" *ngFor="let name of categoryKeys">{{category[name]}}</ion-select-option>
+              </ion-select>
+            </ion-item>
           </ion-col>
   
         </ion-row>
@@ -82,7 +89,7 @@
 
 <ion-content>
 
-  <ion-card *ngFor="let expense of expenses | catagory: selectedValue.value">
+  <ion-card *ngFor="let expense of expenses | category: selectedCategoryValue.value  | catagory: selectedValue.value">
 
     <ion-toolbar [color]="expense.category == 'Return'?'primary':'danger'">
       <ion-buttons [slot]="expense.category == 'Return'?'':'end'">

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
 import { ExpenseTypes } from 'src/app/constants/constants';
 import { CreditTypes } from 'src/app/constants/constants'
+import { Category } from 'src/app/constants/constants'
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import { DataService } from 'src/app/services/data/data.service';
 import { DatetimeService } from 'src/app/services/datetime/datetime.service';
@@ -37,6 +38,9 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
   creditTypes = CreditTypes;
   creditTypesKeys = [];
+
+  category = Category;
+  categoryKeys = [];
   
 
 
@@ -77,6 +81,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
     //this.storage.saveExpenseToDatabase();
     this.expenseTypesKeys = Object.keys(this.expenseTypes);
     this.creditTypesKeys = Object.keys(this.creditTypes)
+    this.categoryKeys = Object.keys(this.category);
    
   }
 
