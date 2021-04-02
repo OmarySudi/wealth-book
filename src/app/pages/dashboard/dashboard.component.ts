@@ -76,6 +76,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
     // this.expenseTypes = ExpenseTypes;
     //this.storage.saveExpenseToDatabase();
     this.expenseTypesKeys = Object.keys(this.expenseTypes);
+    this.creditTypesKeys = Object.keys(this.creditTypes)
    
   }
 

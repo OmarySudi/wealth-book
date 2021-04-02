@@ -18,6 +18,7 @@ export enum Category{
 }
 
 export enum CreditTypes{
+   
     Salary = "Salary",
     Business = "Business",
     Other = "Other"
