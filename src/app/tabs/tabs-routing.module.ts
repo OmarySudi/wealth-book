@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/budget/budget.module').then(m => m.BudgetModule)
       },
       {
+        path: 'reports',
+        loadChildren: () => import('../pages/report/report.module').then(m => m.ReportModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/dashboard',
         pathMatch: 'full'
