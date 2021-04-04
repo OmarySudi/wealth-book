@@ -56,6 +56,7 @@ export class AddExpenseComponent implements OnInit {
     this.datetimeservice.getSelectedDate().then((date: Date)=>{
 
       expense.createdOn = date;
+      console.log(expense.createdOn);
 
       if(!expense.createdOn)
         expense.createdOn = this.datetimeservice.getCurrentDateTime();

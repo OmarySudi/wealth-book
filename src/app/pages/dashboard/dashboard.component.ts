@@ -253,8 +253,8 @@ getAllExpenses(date?: Date){
 
     userid = res.value;
     
-    fetchedDate = date ? this.datetimeservice.getDateIso(date).substr(0,10): this.datetimeservice.getDateIso().substr(0,10);
-
+    fetchedDate = date ? this.datetimeservice.getDateIso(date).substr(0,10).split('-').join('/'): this.datetimeservice.getDateIso(date).substr(0,10).split('-').join('/');
+    
     this.expensesRef = this.database.list('users/'+userid+'/'+fetchedDate);
 
     this.expensesRef.snapshotChanges().pipe(

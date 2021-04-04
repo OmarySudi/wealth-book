@@ -39,7 +39,7 @@ export class StorageService {
 
     return this.getFromLocalStorage("userid").then((res)=>{
       
-      let date = this.datetimeservice.getDateIso(expense.createdOn).substr(0,10)
+      let date = this.datetimeservice.getDateIso(expense.createdOn).substring(0,10).split('-').join('/');
 
       expense.date = date;
 
@@ -100,12 +100,13 @@ export class StorageService {
 
       userid = res.value;
       
-      fetchedDate = date ? this.datetimeservice.getDateIso(date).substr(0,10): this.datetimeservice.getDateIso().substr(0,10);
+      fetchedDate = date ? this.datetimeservice.getDateIso(date).substr(0,10).split('-').join('/'): this.datetimeservice.getDateIso(date).substr(0,10).split('-').join('/');
+
+      console.log("today date "+fetchedDate)
 
       this.expensesRef = this.database.list('users/'+userid+'/'+fetchedDate);
 
-    
-       return this.expensesRef.snapshotChanges();
+      return this.expensesRef.snapshotChanges();
 
     });
   }

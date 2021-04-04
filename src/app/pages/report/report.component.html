@@ -2,9 +2,68 @@
   <ion-toolbar color="primary">
     <ion-title class="ion-text-center">Reports</ion-title>
   </ion-toolbar>
-
+  <ion-row>
+    <ion-col size="3">
+      <ion-button (click)="onClickDate()" expand="block" fill="solid">
+        2021
+      </ion-button>
+    </ion-col>
+    <ion-col size="3">
+      
+    </ion-col>
+    <ion-col size="3">
+      
+    </ion-col>
+    <ion-col size="3">
+      <ion-button (click)="selectedValue.open()" expand="block" fill="solid">
+        <ion-item hidden>
+          <ion-select interface="popover" #selectedValue>
+             
+              <ion-select-option  [value]="monthKeys[name]" *ngFor="let name of monthKeys">{{name}}</ion-select-option>
+             
+          </ion-select>
+        </ion-item>
+      </ion-button>
+    </ion-col>
+  </ion-row>
 </ion-header>
 
-<ion-content>
-  Report content
+ <ion-content>
+ <!-- <ion-card *ngFor="let expense of expenses">
+
+    <ion-toolbar [color]="expense.category == 'Return'?'primary':'danger'">
+      <ion-buttons [slot]="expense.category == 'Return'?'':'end'">
+        <ion-button>
+          <ion-icon size="large" name="help-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="presentEditModal(expense)">
+          <ion-icon size="large" name="pencil-outline"></ion-icon>
+        </ion-button> 
+      </ion-buttons>
+
+      <ion-title [slot]="expense.category == 'Return'?'end':''">$ {{expense.amount}}</ion-title>
+    </ion-toolbar>
+
+    <ion-card-content>
+
+      <ion-text>
+        {{expense.description}}
+      </ion-text>
+    
+      <ion-footer>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12" [offset]="expense.category == 'Return'?'8':''">
+              <ion-text>{{expense.category}}:{{expense.type}}</ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-footer>
+
+    </ion-card-content> -->
+
+    <ion-card *ngFor="let key of expenseCategoriesKeys">
+      {{key}}: {{ categories[key]}}
+    </ion-card>
+  <!-- </ion-card> -->
 </ion-content>

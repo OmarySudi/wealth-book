@@ -40,6 +40,11 @@ export class DatetimeService {
     return date ? moment(date).format() : moment().format();
   }
 
+  startingDateIsoFromYear(date: string): string{
+
+    return date.substr(0,10).split('-').join('/');
+  }
+
   createDateFromString(dateInString: string): Date{
 
     return moment(dateInString).toDate();

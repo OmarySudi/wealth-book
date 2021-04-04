@@ -74,6 +74,10 @@ export class LoginPage implements OnInit{
                   case 'auth/too-many-requests':
                     this.notification.presentToast(error.message,"danger");
                     break;
+
+                    default:
+                      this.notification.presentToast(error.message,"danger");
+                      break;
             }
             }
           }
