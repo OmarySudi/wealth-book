@@ -35,6 +35,14 @@ export class DatetimeService {
     return moment().toDate();
   }
 
+  getCurrentYear(): string{
+    return moment().format('YYYY');
+  }
+
+  getCurrentMonth(): string{
+    return moment().format('MMMM');  
+  }
+
   getDateIso(date?: Date): string{
 
     return date ? moment(date).format() : moment().format();

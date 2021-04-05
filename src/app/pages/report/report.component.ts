@@ -29,27 +29,43 @@ export class ReportComponent implements OnInit {
   expenses: ExpenseInterface[] = [];
   expensesRef: AngularFireList<ExpenseInterface>;
 
+  currentMonth: string;
+  currentYear: string;
+
   constructor(
     private datetimeservice: DatetimeService,
     private storage: StorageService,
     private database: AngularFireDatabase) { 
 
-    this.getMonthlyReport('2021','04');
+    this.getMonthlyReport();
 
     this.monthKeys = Object.keys(this.months)
   }
 
   
-  getMonthlyReport(year: String, month?: String){
+  getMonthlyReport(year?: string, month?: string){
 
     let userid = "";
     let fetchedMonth = "";
 
+    if(year){
+
+      fetchedMonth = year.concat("/"+this.months[month]);
+
+    }else{
+      this.setCurrentMonth();
+
+      this.setCurrentYear();
+
+      fetchedMonth = this.currentYear.concat("/"+this.months[this.currentMonth]);
+
+    }
+
     this.storage.getFromLocalStorage("userid").then((res)=>{
 
       userid = res.value;
-      
-      fetchedMonth = month? year.concat("/"+month):'';
+
+      //fetchedMonth = month? year.concat("/"+month):'';
 
       console.log("fetchedMonth "+fetchedMonth);
 
@@ -137,6 +153,14 @@ export class ReportComponent implements OnInit {
 
     this.returnCategories = obj;
     this.returnCategoriesKeys = Object.keys(obj)
+  }
+
+  setCurrentMonth(){
+    this.currentMonth = this.datetimeservice.getCurrentMonth();
+  }
+
+  setCurrentYear(){
+    this.currentYear = this.datetimeservice.getCurrentYear();
   }
 
 }
