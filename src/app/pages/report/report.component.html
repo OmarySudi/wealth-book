@@ -62,8 +62,71 @@
 
     </ion-card-content> -->
 
-    <ion-card *ngFor="let key of expenseCategoriesKeys">
-      {{key}}: {{ categories[key]}}
+    <!-- <ion-card *ngFor="let key of expenseCategoriesKeys">
+      {{key}}: {{ expenseCategories[key]}}
     </ion-card>
+
+    <ion-card *ngFor="let key of returnCategoriesKeys">
+      {{key}}: {{ returnCategories[key]}}
+    </ion-card> -->
+
+    <!-- <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Expenses</ion-label>
+      </ion-item-divider>
+    
+        <ion-item *ngFor="let key of expenseCategoriesKeys">
+          <ion-label>{{key}}: {{ expenseCategories[key]}}</ion-label>
+        </ion-item>
+      
+    </ion-item-group> -->
   <!-- </ion-card> -->
+  <ion-card style="margin-left: 0px;margin-right: 0px;">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Monthly Report</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item-group>
+              <ion-item-divider>
+                <ion-label>Expenses</ion-label>
+              </ion-item-divider>
+            
+                <ion-item *ngFor="let key of expenseCategoriesKeys">
+                  <ion-label>{{key}}: {{ expenseCategories[key]}}</ion-label>
+                </ion-item>
+
+                <!-- <ion-item>
+                  <ion-button expand="full" fill="solid" color="danger">
+                    <b>Total: {{totalMonthlyExpense}}</b>
+                  </ion-button>
+                </ion-item> -->
+
+                <ion-item color="danger">
+                  <ion-label>Total: {{ totalMonthlyExpense }}</ion-label>
+                </ion-item>
+
+            </ion-item-group>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item-group>
+              <ion-item-divider>
+                <ion-label>Returns</ion-label>
+              </ion-item-divider>
+            
+                <ion-item *ngFor="let key of returnCategoriesKeys">
+                  <ion-label>{{key}}: {{ returnCategories[key]}}</ion-label>
+                </ion-item>
+                <ion-item color="primary">
+                  <ion-label>Total: {{ totalMonthlyReturn }}</ion-label>
+                </ion-item>
+            </ion-item-group>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

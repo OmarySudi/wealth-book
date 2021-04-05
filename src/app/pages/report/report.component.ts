@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Months} from 'src/app/constants/constants'
-import { map,concatAll } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
@@ -16,12 +16,15 @@ export class ReportComponent implements OnInit {
   months = Months;
   monthKeys = [];
 
-  expenseCategories;
+  expenseCategoriesMap;
   expenseCategoriesKeys = [];
-  categories = {}
+  expenseCategories = {}
+  totalMonthlyExpense: number;
 
-  returnCategories;
-  returnCategoriesKyes = [];
+  returnCategoriesMap;
+  returnCategoriesKeys = [];
+  returnCategories = {}
+  totalMonthlyReturn: number;
 
   expenses: ExpenseInterface[] = [];
   expensesRef: AngularFireList<ExpenseInterface>;
@@ -58,8 +61,10 @@ export class ReportComponent implements OnInit {
         
       ).subscribe(data => {
       
-        this.expenseCategories = new Map();
-        this.returnCategories = new Map();
+        this.expenseCategoriesMap = new Map();
+        this.returnCategoriesMap = new Map();
+        this.totalMonthlyExpense = 0;
+        this.totalMonthlyReturn = 0;
 
         data.forEach(data=>{
 
@@ -70,34 +75,37 @@ export class ReportComponent implements OnInit {
             expenseinterface = data[key];
 
             if(expenseinterface.category == "Expense"){
-
-              if(this.expenseCategories.has(expenseinterface.type))
+              this.totalMonthlyExpense+=expenseinterface.amount;
+              if(this.expenseCategoriesMap.has(expenseinterface.type))
               {
-                let amount  = this.expenseCategories.get(expenseinterface.type)
+                let amount  = this.expenseCategoriesMap.get(expenseinterface.type)
                 amount+=expenseinterface.amount;
-                this.expenseCategories.delete(expenseinterface.type)
-                this.expenseCategories.set(expenseinterface.type,amount);
+                this.expenseCategoriesMap.set(expenseinterface.type,amount);
 
               }else{
-                this.expenseCategories.set(expenseinterface.type,expenseinterface.amount) 
+                this.expenseCategoriesMap.set(expenseinterface.type,expenseinterface.amount) 
               }
 
             }else if(expenseinterface.category == "Return"){
+              this.totalMonthlyReturn+=expenseinterface.amount;
+              if(this.returnCategoriesMap.has(expenseinterface.type))
+              {
+                let amount  = this.returnCategoriesMap.get(expenseinterface.type)
+                amount+=expenseinterface.amount;
+                this.returnCategoriesMap.set(expenseinterface.type,amount);
 
+              }else{
+                this.returnCategoriesMap.set(expenseinterface.type,expenseinterface.amount) 
+              }
             }
             
           })
         })
 
-  
-        let obj = Array.from(this.expenseCategories).reduce((obj, [key, value]) => (
-          Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
-        ), {});
-
-        this.categories = obj;
-        this.expenseCategoriesKeys = Object.keys(obj)
-      
-           
+        this.setExpenseCategories(this.expenseCategoriesMap);
+        
+        this.setReturnCategories(this.returnCategoriesMap);
+ 
       });
   
     });
@@ -110,7 +118,25 @@ export class ReportComponent implements OnInit {
   }
 
   onClickDate(){
-    
+
+  }
+
+  setExpenseCategories(expenseCategoriesMap: Iterable<unknown> | ArrayLike<unknown>){
+    let obj = Array.from(expenseCategoriesMap).reduce((obj, [key, value]) => (
+      Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
+    ), {});
+
+    this.expenseCategories = obj;
+    this.expenseCategoriesKeys = Object.keys(obj)
+  }
+
+  setReturnCategories(returnCategoriesMap: Iterable<unknown> | ArrayLike<unknown>){
+    let obj = Array.from(returnCategoriesMap).reduce((obj, [key, value]) => (
+      Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
+    ), {});
+
+    this.returnCategories = obj;
+    this.returnCategoriesKeys = Object.keys(obj)
   }
 
 }
