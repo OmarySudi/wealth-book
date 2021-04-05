@@ -33,6 +33,7 @@ export class ReportComponent implements OnInit {
 
   currentMonth: string;
   currentYear: string;
+  loader: boolean;
 
   constructor(
     private datetimeservice: DatetimeService,
@@ -49,9 +50,11 @@ export class ReportComponent implements OnInit {
   
   getMonthlyReport(year?: string, month?: string){
 
+    this.loader = true;
+
     let userid = "";
     let fetchedMonth = "";
-
+   
     if(year){
 
       fetchedMonth = year.concat("/"+this.months[month]);
@@ -122,13 +125,15 @@ export class ReportComponent implements OnInit {
           })
         })
 
+        this.loader = false;
+
         this.setExpenseCategories(this.expenseCategoriesMap);
         
         this.setReturnCategories(this.returnCategoriesMap);
  
       });
   
-    });
+    })
   }
  
 

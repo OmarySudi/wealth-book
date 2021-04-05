@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
   filterPrice: boolean;
   filterPriceUp: boolean;
+  loader: boolean;
 
   constructor(
     private modalController:ModalController,
@@ -73,6 +74,8 @@ export class DashboardComponent implements OnInit,OnDestroy{
     //      console.log("$$$$$$$$$$"+userid);
           
     // });
+   
+
     this.getAllExpenses();
 
     this.todayDate = this.datetimeservice.getCurrentDateTime();
@@ -246,6 +249,8 @@ setCurrentToTodayDate(): void{
 
 getAllExpenses(date?: Date){
 
+  this.loader = true;
+  
   let userid = "";
   let fetchedDate = "";
 
@@ -268,6 +273,7 @@ getAllExpenses(date?: Date){
       if(data){
 
         console.log(data);
+        this.loader = false;
         this.expenses = data;
         this.dataservice.setExpenesTotalAmount(data);
         this.dataservice.setReturnsTotalAMount(data);
