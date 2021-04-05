@@ -5,6 +5,7 @@ import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-report',
@@ -15,6 +16,7 @@ export class ReportComponent implements OnInit {
 
   months = Months;
   monthKeys = [];
+  years = [];
 
   expenseCategoriesMap;
   expenseCategoriesKeys = [];
@@ -38,6 +40,8 @@ export class ReportComponent implements OnInit {
     private database: AngularFireDatabase) { 
 
     this.getMonthlyReport();
+
+    this.getListOfYears();
 
     this.monthKeys = Object.keys(this.months)
   }
@@ -137,6 +141,14 @@ export class ReportComponent implements OnInit {
 
   }
 
+  changeSelectedMonth(month:string){
+    this.getMonthlyReport(this.currentYear,this.currentMonth);
+  }
+
+  changeSelectedYear(year:string){
+    this.getMonthlyReport(this.currentYear,this.currentMonth);
+  }
+
   setExpenseCategories(expenseCategoriesMap: Iterable<unknown> | ArrayLike<unknown>){
     let obj = Array.from(expenseCategoriesMap).reduce((obj, [key, value]) => (
       Object.assign(obj, { [key]: value }) // Be careful! Maps can have non-String keys; object literals can't.
@@ -161,6 +173,15 @@ export class ReportComponent implements OnInit {
 
   setCurrentYear(){
     this.currentYear = this.datetimeservice.getCurrentYear();
+  }
+
+  getListOfYears(){
+    let min = 2020
+    let max = Number(this.datetimeservice.getCurrentYear());
+   
+    for (let i = min; i<=max; i++){
+      this.years.push(i);
+    }
   }
 
 }

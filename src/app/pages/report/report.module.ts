@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ReportComponent } from './report.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
     RouterModule.forChild([{path:'',component:ReportComponent}])
   ]
 })
