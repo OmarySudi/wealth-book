@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
   category = Category;
   categoryKeys = [];
   
+  currency: string = 'TZS';
 
 
   filterPrice: boolean;

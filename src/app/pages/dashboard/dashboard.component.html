@@ -6,14 +6,14 @@
           <ion-col size="8">
 
             <ion-text>
-              <h6>Daily Expenses: {{todayTotalExpenses | currency:'USD'}}</h6>
+              <h6>Daily Expenses: {{todayTotalExpenses | customCurrency: currency}}</h6>
             </ion-text>
 
             <!-- <ion-card-subtitle>
               Total Returns: {{todayTotalReturns | currency:'USD'}}
             </ion-card-subtitle> -->
             <ion-text>
-              <h6>Daily Returns: {{todayTotalReturns | currency:'USD'}}</h6>
+              <h6>Daily Returns: {{todayTotalReturns | customCurrency: currency}}</h6>
             </ion-text>
       
           </ion-col>
@@ -105,7 +105,7 @@
           </ion-button>
         </ion-buttons>
   
-        <ion-title [slot]="expense.category == 'Return'?'end':''">$ {{expense.amount}}</ion-title>
+        <ion-title [slot]="expense.category == 'Return'?'end':''">{{expense.amount | customCurrency:currency }}</ion-title>
       </ion-toolbar>
   
       <ion-card-content>

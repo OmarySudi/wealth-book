@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule} from '@angular/fire';
 import { environment } from 'src/environments/environment';
+//import { CustomCurrencyPipe } from './pipes/custom-currency.pipe';
 //import { CatagoryPipe } from './pipes/catagory.pipe';
 
 
