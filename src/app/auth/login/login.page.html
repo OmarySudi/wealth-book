@@ -30,12 +30,13 @@
       </ion-item-group>
 
     </form>
+
+    <ion-list style="margin-top: 10px;">
+        <ion-button (click)="googleSignin()" expand="block" fill="solid">
+          <ion-text style="margin-right: 3px;">Sign in with google</ion-text><ion-icon name="logo-google"></ion-icon> 
+        </ion-button>
+    </ion-list>
   
-     <!-- <ion-item class="ion-text-end" lines="none">
-      <ion-label [routerLink]="['/auth/forget-password']" color="primary">Forgot password</ion-label>
-      <ion-label [routerLink]="['/auth/register']" color="primary">Register</ion-label>
-     </ion-item> -->
-    
    </ion-card-content>
  </ion-card>
 

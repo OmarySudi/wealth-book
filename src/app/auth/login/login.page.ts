@@ -88,4 +88,19 @@ export class LoginPage implements OnInit{
     this.showPassword = !this.showPassword;
   }
 
+  googleSignin(){
+    this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
+     
+      this.storage.saveToLocalStorage("userid",userCredential.user.uid);
+      this.storage.saveToLocalStorage("name",userCredential.user.displayName);
+      this.storage.saveToLocalStorage("email",userCredential.user.email);
+
+      this.route.navigate(['/tabs/dashboard']);
+
+    }).catch(()=>{
+
+      this.notification.presentToast("There is a google server error","danger");
+    });
+  }
+
 }

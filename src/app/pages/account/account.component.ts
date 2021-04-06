@@ -26,13 +26,10 @@ export class AccountComponent implements OnInit {
     private notification: NotificationService
     ) 
     { 
-
+      this.setEmailAndName();
     }
 
-  ngOnInit() {
-
-    this.setEmailAndName();
-  }
+  ngOnInit() {}
 
   setEmailAndName(){
     this.storageservice.getFromLocalStorage('email').then((res)=> this.email = res.value)

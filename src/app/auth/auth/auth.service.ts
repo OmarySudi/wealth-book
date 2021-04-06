@@ -37,8 +37,8 @@ export class AuthService {
     return from(this.fireAuth.signOut());
   }
 
-  loginWithGoogle(){
-
+  loginWithGoogle(): Promise<firebase.auth.UserCredential>{
+    return this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   requestResetPasswordLink(email: string){
