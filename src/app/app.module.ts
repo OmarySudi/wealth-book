@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule} from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 //import { CustomCurrencyPipe } from './pipes/custom-currency.pipe';
 //import { CatagoryPipe } from './pipes/catagory.pipe';
 
@@ -18,6 +19,7 @@ import { environment } from 'src/environments/environment';
   entryComponents: [],
   imports: [
     BrowserModule, 
+    HttpClientModule,
     IonicModule.forRoot(), 
     AppRoutingModule,
     ReactiveFormsModule,

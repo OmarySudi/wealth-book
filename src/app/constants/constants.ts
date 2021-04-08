@@ -39,3 +39,16 @@ export enum Months{
     November = "11",
     December = "12"
 }
+
+export enum Currencies{
+
+    'USD'="USD",
+    'EUR'="EUR",
+    'GBP'="GBR",
+    'JPY'="JPY",
+    'CNY'="CNY",
+    'RUB'="RUB",
+    'ZAR'="ZAR",
+    'KES'="KES",
+    'TZS'="TZS",    
+}

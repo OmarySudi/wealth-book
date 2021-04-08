@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Change Currency</ion-title>
+    <ion-button (click)="dismiss()" slot="end" fill="outline" color="danger">
+      <ion-icon  name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+
+  <form [formGroup]="changeCurrencyForm">
+
+    <ion-item>
+      <ion-label>Select Currency</ion-label>
+      <ion-select value="brown" okText="Ok" cancelText="Cancel" formControlName="currency" interface="popover">
+        <ion-select-option  [value]="currencykey" *ngFor="let currencykey of currencyKeys">{{currencykey}}({{ currencyObject[currencykey]}})</ion-select-option>
+    </ion-select>
+    </ion-item>
+
+    <ion-button (click)="changeCurrency()"  [disabled]="!changeCurrencyForm.valid" size="large" expand="block" fill="solid" >Save</ion-button>
+   
+  </form>
+
+</ion-content>

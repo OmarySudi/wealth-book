@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { SubscriptionLike } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
+import { AngularFireDatabase,AngularFireList, AngularFireObject} from '@angular/fire/database';
 import { ExpenseTypes } from 'src/app/constants/constants';
 import { CreditTypes } from 'src/app/constants/constants'
 import { Category } from 'src/app/constants/constants'
@@ -12,6 +12,9 @@ import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { AddExpenseComponent } from 'src/app/shared/components/add-expense/add-expense.component';
 import { EditExpenseComponent } from 'src/app/shared/components/edit-expense/edit-expense.component';
+import { Setting } from 'src/app/interfaces/setting';
+import { LodashService } from 'src/app/services/lodash/lodash.service';
+import { ChangeCurrencyComponent } from 'src/app/shared/components/change-currency/change-currency.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +28,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
   expensesRef: AngularFireList<ExpenseInterface>;
   subscription: SubscriptionLike;
   dateSubscription: SubscriptionLike;
+  currencySubscription: SubscriptionLike;
   todayTotalExpensesSubscription: SubscriptionLike;
   todayTotalReturnsSubscription: SubscriptionLike;
   todayTotalReturns: number;
@@ -42,12 +46,15 @@ export class DashboardComponent implements OnInit,OnDestroy{
   category = Category;
   categoryKeys = [];
   
-  currency: string = 'TZS';
-
+  currency: string = "";
 
   filterPrice: boolean;
   filterPriceUp: boolean;
   loader: boolean;
+
+  setting: Setting;
+
+  settingRef: AngularFireObject<Setting>;
 
   constructor(
     private modalController:ModalController,
@@ -55,7 +62,8 @@ export class DashboardComponent implements OnInit,OnDestroy{
     private database: AngularFireDatabase,
     private datetimeservice: DatetimeService,
     private storage: StorageService,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private lodash: LodashService,
     ) 
     
     {
@@ -75,11 +83,13 @@ export class DashboardComponent implements OnInit,OnDestroy{
     //      console.log("$$$$$$$$$$"+userid);
           
     // });
-   
+
+    this.setCurrency();
 
     this.getAllExpenses();
 
-    this.todayDate = this.datetimeservice.getCurrentDateTime();
+    this.todayDate = 
+    this.datetimeservice.getCurrentDateTime();
     this.installDate = this.datetimeservice.installDate;
     // this.expenseTypes = ExpenseTypes;
     //this.storage.saveExpenseToDatabase();
@@ -105,6 +115,15 @@ export class DashboardComponent implements OnInit,OnDestroy{
       .subscribe({
         next: (total: number)=>{
           this.todayTotalExpenses = total;
+        },
+        error: (error)=>{console.log(error)},
+        complete: ()=>{}
+      });
+
+      this.currencySubscription = this.dataservice.getCurrencySubscription()
+      .subscribe({
+        next: (currency: string)=>{
+          this.currency = currency;
         },
         error: (error)=>{console.log(error)},
         complete: ()=>{}
@@ -187,6 +206,17 @@ changeSelectedDate(value): void{
   });
  }
 
+ async changeCurrency(){
+  const modal = await this.modalController.create({
+    component: ChangeCurrencyComponent,
+    cssClass: 'my-custom-class',
+    componentProps: {
+      'currency': this.currency,
+    }
+  });
+  return await modal.present();
+ }
+
 //  setCurrentToTodayDate(): void{
 //   this.datetimeservice.setSelectedDate(this.datetimeservice.getCurrentDateTime()).then(()=>{
 
@@ -249,9 +279,9 @@ setCurrentToTodayDate(): void{
 }
 
 getAllExpenses(date?: Date){
-
+ 
   this.loader = true;
-  
+
   let userid = "";
   let fetchedDate = "";
 
@@ -281,12 +311,19 @@ getAllExpenses(date?: Date){
 
       }else{
 
+        this.loader = false;
         this.expenses = [];
         this.dataservice.setExpenesTotalAmount([]);
       }
      
     });
 
+  });
+}
+
+setCurrency(){
+  this.storage.getFromLocalStorage("currency").then((res)=>{
+    this.currency = res.value;
   });
 }
 

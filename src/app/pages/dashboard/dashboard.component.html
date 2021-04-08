@@ -2,9 +2,15 @@
   <ion-toolbar>
     <ion-card style="margin-left:0px;margin-right:0px">
       <ion-card-header color="primary">
-        <ion-row>
+        <ion-row *ngIf="currency !== ''">
           <ion-col size="8">
 
+            
+            
+              <ion-button (click)="changeCurrency()" style="width:60%" expand="full" fill="solid" shape="round" color="light">
+                <b>CURRENCY({{currency}})</b>
+              </ion-button>
+            
             <ion-text>
               <h6>Daily Expenses: {{todayTotalExpenses | customCurrency: currency}}</h6>
             </ion-text>

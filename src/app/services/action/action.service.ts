@@ -75,8 +75,6 @@ export class ActionService {
 
       let userid =  res.value;
       
-      console.log(expense);
-      
       this.expensesRef = this.database.list('users/'+userid+'/'+expense.date);
 
       return this.expensesRef.update(key,expense);

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {ExpenseInterface} from '../../interfaces/expenseinterface'
+import {HttpClient} from '@angular/common/http'
+import {map} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,13 @@ export class DataService {
   private readonly _expenses: BehaviorSubject<ExpenseInterface[]>;
   private readonly todayTotalExpenses: BehaviorSubject<number>;
   private readonly todayTotalReturn: BehaviorSubject<number>;
-  
-  
-  constructor() {
+  private readonly currency: BehaviorSubject<string>;
+
+  constructor(private httpClient: HttpClient) {
     this._expenses = new BehaviorSubject<ExpenseInterface[]>(null);
     this.todayTotalExpenses = new BehaviorSubject<number>(0);
     this.todayTotalReturn = new BehaviorSubject<number>(0);
+    this.currency = new BehaviorSubject<string>('');
 
    }
 
@@ -42,16 +45,23 @@ export class DataService {
     return this.todayTotalExpenses.next(total);
   }
 
-  getExpensesSubscription(): BehaviorSubject<ExpenseInterface[]>{
+  getCurrencySubscription(): BehaviorSubject<string>{
 
-    return this._expenses;
+    return this.currency;
+  }
+
+  async setCurrency(currency: string): Promise<void>{
+    return this.currency.next(currency);
+  }
+
+  async getCurrency(): Promise<string>{
+    return this.currency.getValue();
   }
 
   getTodayTotalExpensesSubscription(): BehaviorSubject<number>{
 
     return this.todayTotalExpenses;
   }
-
 
   async getTodayTotalExpenses(): Promise<number>{
 
@@ -91,6 +101,12 @@ export class DataService {
       this.setTodayTotalReturns(this.calculateTodayTotalReturn(expenses))
   }
 
+  getExpensesSubscription(): BehaviorSubject<ExpenseInterface[]>{
+
+    return this._expenses;
+  }
+
+  
   calculateTodayTotalReturn(expenses: ExpenseInterface[]): number{
     let total = 0;
 
@@ -100,6 +116,15 @@ export class DataService {
         total+=expense.amount;
     }
     return total;
+  }
+
+  getCurrencyCodes(){
+    return this.httpClient.get("https://openexchangerates.org/api/currencies.json",{responseType:'json'})
+    .pipe(
+      map(data=>{
+        return data;
+      })
+    )
   }
  
 }
