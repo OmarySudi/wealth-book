@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-card style="margin-left:0px;margin-right:0px">
+    <ion-card style="margin-left:0px;margin-right:0px; margin-top:0px">
       <ion-card-header color="primary">
         <ion-row *ngIf="currency !== ''">
           <ion-col size="8">
 
             
             
-              <ion-button (click)="changeCurrency()" style="width:60%" expand="full" fill="solid" shape="round" color="light">
-                <b>CURRENCY({{currency}})</b>
+              <ion-button (click)="changeCurrency()" style="width:62%" expand="full" fill="solid" shape="round" color="light">
+                <ion-card-subtitle>CURRENCY({{currency}})</ion-card-subtitle>
               </ion-button>
             
             <ion-text>
