@@ -4,9 +4,8 @@ import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import {map} from 'rxjs/operators'
 import { ModalController } from '@ionic/angular';
-import { SubscriptionLike } from 'rxjs';
+import { from, Observable, SubscriptionLike } from 'rxjs';
 import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class MonthlyExpensesComponent implements OnInit {
   filterPrice: boolean;
   filterPriceUp: boolean;
 
-  expensesSubscription: SubscriptionLike;
  
   constructor(
     private storage: StorageService,
@@ -33,6 +31,7 @@ export class MonthlyExpensesComponent implements OnInit {
     private dataservice: DataService,
     ) { 
     this.setCurrency();
+
   }
 
   ngOnInit() {
@@ -57,18 +56,18 @@ export class MonthlyExpensesComponent implements OnInit {
     });
   }
 
-  // priceFilter(): void{
+  priceFilter(): void{
 
-  //   this.expenses = this.expenses.sort((a,b)=>{
+    this.expenses = this.expenses.sort((a,b)=>{
   
-  //     if(a.amount > b.amount) return this.filterPriceUp ? 1: -1;
+      if(a.amount > b.amount) return this.filterPriceUp ? 1: -1;
   
-  //     if(b.amount > a.amount) return this.filterPriceUp? -1: 1;
-  //   })
+      if(b.amount > a.amount) return this.filterPriceUp? -1: 1;
+    })
   
-  //   this.filterPrice = true;
-  //   this.filterPriceUp = !this.filterPriceUp;
+    this.filterPrice = true;
+    this.filterPriceUp = !this.filterPriceUp;
     
-  //  }
+   }
 
 }

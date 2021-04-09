@@ -126,7 +126,6 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.subscription = this.dataservice.getExpensesSubscription()
       .subscribe({
         next: (expenses: ExpenseInterface[])=>{
-
           if(expenses != null){
 
             this.expenses = expenses
