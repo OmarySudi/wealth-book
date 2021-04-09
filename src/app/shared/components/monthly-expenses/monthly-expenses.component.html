@@ -30,8 +30,8 @@
     <ion-card *ngFor="let expense of expenses |catagory: type">
 
       <ion-toolbar [color]="expense.category == 'Return'?'primary':'danger'">
-        <ion-title [slot]="expense.category == 'Return'?'end':''">{{expense.amount | customCurrency:currency }}</ion-title>
-        <ion-title [slot]="expense.category == 'Return'?'':'end'">{{ expense.date}}</ion-title>
+        <ion-text style="font-size:medium; margin-left:5px" [slot]="expense.category == 'Return'?'end':'start'"><b>{{expense.amount | customCurrency:currency }}</b></ion-text>
+        <ion-text style="font-size:medium;" [slot]="expense.category == 'Return'?'':'end'"><b>{{ expense.date}}</b></ion-text>
       </ion-toolbar>
   
       <ion-card-content>

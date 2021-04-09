@@ -3,7 +3,7 @@
     <ion-card style="margin-left:0px;margin-right:0px; margin-top:0px">
       <ion-card-header color="primary">
         <ion-row *ngIf="currency !== ''">
-          <ion-col size="9">
+          <ion-col size="8">
 
             
             
@@ -12,15 +12,15 @@
             </ion-button>
             
             <ion-text>
-              <h6>Daily Expenses: {{todayTotalExpenses | customCurrency: currency}}</h6>
+              <h6>Expenses: {{todayTotalExpenses | customCurrency: currency}}</h6>
             </ion-text>
             <ion-text>
-              <h6>Daily Returns: {{todayTotalReturns | customCurrency: currency}}</h6>
+              <h6>Returns: {{todayTotalReturns | customCurrency: currency}}</h6>
             </ion-text>
       
           </ion-col>
 
-          <ion-col size="3">
+          <ion-col size="4">
             <ion-card-subtitle>
               {{ selectedDate | date}}
             </ion-card-subtitle>
@@ -110,7 +110,7 @@
           </ion-button>
         </ion-buttons>
   
-        <ion-title [slot]="expense.category == 'Return'?'end':''">{{expense.amount | customCurrency:currency }}</ion-title>
+        <ion-text style="font-size:medium;" [slot]="expense.category == 'Return'?'end':''"><b>{{expense.amount | customCurrency:currency }}</b></ion-text>
       </ion-toolbar>
   
       <ion-card-content>
