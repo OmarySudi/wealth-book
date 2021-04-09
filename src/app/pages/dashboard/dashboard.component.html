@@ -102,9 +102,9 @@
 
       <ion-toolbar [color]="expense.category == 'Return'?'primary':'danger'">
         <ion-buttons [slot]="expense.category == 'Return'?'':'end'">
-          <ion-button>
+          <!-- <ion-button>
             <ion-icon size="large" name="help-circle-outline"></ion-icon>
-          </ion-button>
+          </ion-button> -->
           <ion-button (click)="presentEditModal(expense)">
             <ion-icon size="large" name="pencil-outline"></ion-icon>
           </ion-button>

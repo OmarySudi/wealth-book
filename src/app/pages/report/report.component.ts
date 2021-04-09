@@ -54,7 +54,6 @@ export class ReportComponent implements OnInit {
   getMonthlyReport(year?: string, month?: string){
 
     this.loader = true;
-
     let userid = "";
     let fetchedMonth = "";
    
@@ -92,6 +91,8 @@ export class ReportComponent implements OnInit {
         this.totalMonthlyExpense = 0;
         this.totalMonthlyReturn = 0;
 
+        this.expenses = [];
+
         data.forEach(data=>{
 
           Object.keys(data).map((key)=>{
@@ -100,7 +101,7 @@ export class ReportComponent implements OnInit {
 
             expenseinterface = data[key];
 
-            this.expenses.push(expenseinterface);
+            this.expenses.unshift(expenseinterface);
 
             if(expenseinterface.category == "Expense"){
               this.totalMonthlyExpense+=expenseinterface.amount;
