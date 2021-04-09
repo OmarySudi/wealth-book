@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-card style="margin-left:0px;margin-right:0px; margin-top:0px">
+      <ion-card-header color="primary">
+      
+        <ion-row>
+          <ion-col size="9">
+            <ion-text>
+              <h6>Total: {{total | customCurrency: currency}}</h6>
+            </ion-text>
+          </ion-col>
+          <ion-col size="3">
+            <ion-button (click)="dismiss()" fill="outline" color="light">
+              <ion-icon  name="close-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-card>
+    <!-- <ion-button  expand="full" (click)="priceFilter()" fill="solid">
+              <ion-icon name="logo-usd"></ion-icon>
+              <ion-icon *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
+            </ion-button> -->
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+    <ion-card *ngFor="let expense of expenses |catagory: type">
+
+      <ion-toolbar [color]="expense.category == 'Return'?'primary':'danger'">
+        <ion-title [slot]="expense.category == 'Return'?'end':''">{{expense.amount | customCurrency:currency }}</ion-title>
+        <ion-title [slot]="expense.category == 'Return'?'':'end'">{{ expense.date}}</ion-title>
+      </ion-toolbar>
+  
+      <ion-card-content>
+  
+        <ion-text>
+          {{expense.description}}
+        </ion-text>
+      
+        <ion-footer>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12" [offset]="expense.category == 'Return'?'8':''">
+                <ion-text>{{expense.category}}:{{expense.type}}</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-footer>
+  
+      </ion-card-content>
+    </ion-card>
+</ion-content>

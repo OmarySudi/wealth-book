@@ -57,7 +57,7 @@ export class ChangeCurrencyComponent implements OnInit {
 
   changeCurrency(){
 
-    this.storage.getFromLocalStorage("userid").then((res)=>{
+    this.storage.getFromLocalStorage("WB_userid").then((res)=>{
 
       let userid = res.value;
       
@@ -66,9 +66,11 @@ export class ChangeCurrencyComponent implements OnInit {
       this.settingref = this.database.object('settings/'+userid);
 
       this.settingref.set(this.setting).then(()=>{
-        this.dataservice.setCurrency(this.setting.currency).then(()=>{
-          this.dismiss();
-        })
+        this.storage.saveToLocalStorage('WB_currency',this.setting.currency).then(()=>{
+          this.dataservice.setCurrency(this.setting.currency).then(()=>{
+            this.dismiss();
+          })
+        });
       }).catch(()=>{
         this.notification.presentToast("There is internal servor error","danger");
       })

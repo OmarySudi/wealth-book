@@ -6,6 +6,8 @@ import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { FormGroup } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { MonthlyExpensesComponent } from 'src/app/shared/components/monthly-expenses/monthly-expenses.component';
 
 @Component({
   selector: 'app-report',
@@ -38,7 +40,8 @@ export class ReportComponent implements OnInit {
   constructor(
     private datetimeservice: DatetimeService,
     private storage: StorageService,
-    private database: AngularFireDatabase) { 
+    private database: AngularFireDatabase,
+    private modalController: ModalController) { 
 
     this.getMonthlyReport();
 
@@ -68,7 +71,7 @@ export class ReportComponent implements OnInit {
 
     }
 
-    this.storage.getFromLocalStorage("userid").then((res)=>{
+    this.storage.getFromLocalStorage("WB_userid").then((res)=>{
 
       userid = res.value;
 
@@ -83,7 +86,7 @@ export class ReportComponent implements OnInit {
       map(changes=> changes.map(c=> c.payload.val())),
         
       ).subscribe(data => {
-      
+
         this.expenseCategoriesMap = new Map();
         this.returnCategoriesMap = new Map();
         this.totalMonthlyExpense = 0;
@@ -96,6 +99,8 @@ export class ReportComponent implements OnInit {
             let expenseinterface: ExpenseInterface;
 
             expenseinterface = data[key];
+
+            this.expenses.push(expenseinterface);
 
             if(expenseinterface.category == "Expense"){
               this.totalMonthlyExpense+=expenseinterface.amount;
@@ -187,6 +192,19 @@ export class ReportComponent implements OnInit {
     for (let i = min; i<=max; i++){
       this.years.push(i);
     }
+  }
+
+  async openExpensesDialog(type: string,total:number){
+    const modal = await this.modalController.create({
+      component: MonthlyExpensesComponent,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'expenses': this.expenses,
+        'type': type,
+        'total': total,
+      }
+    });
+    return await modal.present();
   }
 
 }

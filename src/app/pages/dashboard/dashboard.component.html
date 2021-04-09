@@ -3,28 +3,24 @@
     <ion-card style="margin-left:0px;margin-right:0px; margin-top:0px">
       <ion-card-header color="primary">
         <ion-row *ngIf="currency !== ''">
-          <ion-col size="8">
+          <ion-col size="9">
 
             
             
-              <ion-button (click)="changeCurrency()" style="width:62%" expand="full" fill="solid" shape="round" color="light">
-                <ion-card-subtitle>CURRENCY({{currency}})</ion-card-subtitle>
-              </ion-button>
+            <ion-button (click)="changeCurrency()" style="width:62%" expand="full" fill="solid" shape="round" color="light">
+              <ion-card-subtitle>CURRENCY({{currency}})</ion-card-subtitle>
+            </ion-button>
             
             <ion-text>
               <h6>Daily Expenses: {{todayTotalExpenses | customCurrency: currency}}</h6>
             </ion-text>
-
-            <!-- <ion-card-subtitle>
-              Total Returns: {{todayTotalReturns | currency:'USD'}}
-            </ion-card-subtitle> -->
             <ion-text>
               <h6>Daily Returns: {{todayTotalReturns | customCurrency: currency}}</h6>
             </ion-text>
       
           </ion-col>
 
-          <ion-col size="4">
+          <ion-col size="3">
             <ion-card-subtitle>
               {{ selectedDate | date}}
             </ion-card-subtitle>
@@ -32,7 +28,6 @@
 
         </ion-row>
       </ion-card-header>
-  
       <ion-footer>
         <ion-row>
   
@@ -85,11 +80,15 @@
               </ion-select>
             </ion-item>
           </ion-col>
-  
         </ion-row>
       </ion-footer>
     </ion-card>
   </ion-toolbar>
+
+  <!-- <ion-button  expand="full" (click)="priceFilter()" fill="solid">
+    <ion-icon name="logo-usd"></ion-icon>
+    <ion-icon *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
+  </ion-button> -->
 
 </ion-header>
 

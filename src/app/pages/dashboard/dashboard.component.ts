@@ -68,22 +68,6 @@ export class DashboardComponent implements OnInit,OnDestroy{
     
     {
     
-    //this.expenses = [];
-
-    // this.actionservice.getTodayExpenseFromDatabase().then((userid:any)=>{
-    //   // if(expenses != null)
-    //   // {
-    //   //   console.log("expenses not null");
-        
-    //   //   this.expenses = expenses;
-    //   //   console.log(expenses);
-    //   // }else
-    //   //   console.log("expenses are null");
-        
-    //      console.log("$$$$$$$$$$"+userid);
-          
-    // });
-
     this.setCurrency();
 
     this.getAllExpenses();
@@ -285,7 +269,7 @@ getAllExpenses(date?: Date){
   let userid = "";
   let fetchedDate = "";
 
-  this.storage.getFromLocalStorage("userid").then((res)=>{
+  this.storage.getFromLocalStorage("WB_userid").then((res)=>{
 
     userid = res.value;
     
@@ -322,7 +306,7 @@ getAllExpenses(date?: Date){
 }
 
 setCurrency(){
-  this.storage.getFromLocalStorage("currency").then((res)=>{
+  this.storage.getFromLocalStorage("WB_currency").then((res)=>{
     this.currency = res.value;
   });
 }

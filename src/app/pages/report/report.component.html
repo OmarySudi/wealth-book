@@ -106,11 +106,11 @@
           <ion-col size="6">
             <ion-item-group>
               <ion-item-divider>
-                <ion-label>Expenses</ion-label>
+                <ion-text><b>Expenses</b></ion-text>
               </ion-item-divider>
             
                 <ion-item *ngFor="let key of expenseCategoriesKeys">
-                  <ion-label>{{key}}: {{ expenseCategories[key]}}</ion-label>
+                  <a (click)="openExpensesDialog(key,expenseCategories[key])">{{key}}: {{ expenseCategories[key]}}</a>
                 </ion-item>
 
               
@@ -124,11 +124,11 @@
           <ion-col size="6">
             <ion-item-group>
               <ion-item-divider>
-                <ion-label>Returns</ion-label>
+                <ion-text><b>Returns</b></ion-text>
               </ion-item-divider>
             
                 <ion-item *ngFor="let key of returnCategoriesKeys">
-                  <ion-label>{{key}}: {{ returnCategories[key]}}</ion-label>
+                  <a (click)="openExpensesDialog(key,returnCategories[key])">{{key}}: {{ returnCategories[key]}}</a>
                 </ion-item>
                 <ion-item color="primary">
                   <ion-label>Total: {{ totalMonthlyReturn }}</ion-label>

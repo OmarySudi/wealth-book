@@ -105,9 +105,9 @@ export class LoginPage implements OnInit{
   googleSignin(){
     this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
      
-      this.storage.saveToLocalStorage("userid",userCredential.user.uid);
-      this.storage.saveToLocalStorage("name",userCredential.user.displayName);
-      this.storage.saveToLocalStorage("email",userCredential.user.email);
+      this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+      this.storage.saveToLocalStorage("WB_name",userCredential.user.displayName);
+      this.storage.saveToLocalStorage("WB_email",userCredential.user.email);
 
       this.setCurrency(userCredential.user.uid);
 
@@ -128,12 +128,12 @@ export class LoginPage implements OnInit{
       ).subscribe((data)=>{
 
         if(this.lodash.isNull(data)){
-          this.storage.saveToLocalStorage('currency','USD').then(()=>{
+          this.storage.saveToLocalStorage('WB_currency','USD').then(()=>{
             this.dataservice.setCurrency("USD")
           });
         }else{
           this.setting = data;
-          this.storage.saveToLocalStorage('currency',this.setting.currency).then(()=>{
+          this.storage.saveToLocalStorage('WB_currency',this.setting.currency).then(()=>{
             this.dataservice.setCurrency(this.setting.currency);
           });
         }

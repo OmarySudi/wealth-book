@@ -71,7 +71,7 @@ export class ActionService {
 
   async editExpense(expense: ExpenseInterface, key: string){
 
-    this.storageservice.getFromLocalStorage("userid").then((res)=>{
+    this.storageservice.getFromLocalStorage("WB_userid").then((res)=>{
 
       let userid =  res.value;
       

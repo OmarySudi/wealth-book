@@ -32,9 +32,9 @@ export class AccountComponent implements OnInit {
   ngOnInit() {}
 
   setEmailAndName(){
-    this.storageservice.getFromLocalStorage('email').then((res)=> this.email = res.value)
+    this.storageservice.getFromLocalStorage('WB_email').then((res)=> this.email = res.value)
     .then(()=>{
-      this.storageservice.getFromLocalStorage('name').then((res)=>this.name = res.value)
+      this.storageservice.getFromLocalStorage('WB_name').then((res)=>this.name = res.value)
     })
   }
 

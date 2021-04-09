@@ -37,7 +37,7 @@ export class StorageService {
   
   async saveExpenseToDatabase(expense: ExpenseInterface): Promise<void>{
 
-    return this.getFromLocalStorage("userid").then((res)=>{
+    return this.getFromLocalStorage("WB_userid").then((res)=>{
       
       let date = this.datetimeservice.getDateIso(expense.createdOn).substring(0,10).split('-').join('/');
 
@@ -96,7 +96,7 @@ export class StorageService {
     let userid = "";
     let fetchedDate = "";
 
-    return await this.getFromLocalStorage("userid").then((res)=>{
+    return await this.getFromLocalStorage("WB_userid").then((res)=>{
 
       userid = res.value;
       
