@@ -4,9 +4,7 @@ import { RouterModule} from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IonicModule } from '@ionic/angular';
-import { CatagoryPipe } from 'src/app/pipes/catagory.pipe';
-import { CategoryPipe} from 'src/app/pipes/category.pipe';
-import {CustomCurrencyPipe} from 'src/app/pipes/custom-currency.pipe';
+
 
 // const routes: Routes = [
 //   {
@@ -18,7 +16,7 @@ import {CustomCurrencyPipe} from 'src/app/pipes/custom-currency.pipe';
 // ];
 
 @NgModule({
-  declarations: [DashboardComponent,CatagoryPipe,CategoryPipe,CustomCurrencyPipe],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     IonicModule,

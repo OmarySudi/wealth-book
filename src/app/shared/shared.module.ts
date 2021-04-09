@@ -5,18 +5,33 @@ import { AddExpenseComponent } from './components/add-expense/add-expense.compon
 import {EditExpenseComponent} from './components/edit-expense/edit-expense.component'
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CatagoryPipe } from 'src/app/pipes/catagory.pipe';
+import { CategoryPipe} from 'src/app/pipes/category.pipe';
+import {CustomCurrencyPipe} from 'src/app/pipes/custom-currency.pipe';
 import { ChangeCurrencyComponent } from './components/change-currency/change-currency.component';
 
 
 
 @NgModule({
-  declarations: [AddExpenseComponent,EditExpenseComponent,ChangeCurrencyComponent],
+  declarations: [
+    AddExpenseComponent,
+    EditExpenseComponent,
+    ChangeCurrencyComponent,
+    CatagoryPipe,
+    CategoryPipe,
+    CustomCurrencyPipe
+  ],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
     ReactiveFormsModule
   ],
+  exports: [
+    CatagoryPipe,
+    CategoryPipe,
+    CustomCurrencyPipe
+  ]
 
 })
 export class SharedModule { }
