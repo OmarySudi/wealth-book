@@ -83,6 +83,10 @@ export class ChangeCurrencyComponent implements OnInit {
   }
 
   toggleChecked(){
+
+    if(!this.checkboxChecked)
+      this.changeCurrencyForm.setValue({currency:''});
+
     this.checkboxChecked = !this.checkboxChecked;
   }
 
