@@ -14,6 +14,8 @@ export class DataService {
   private readonly todayTotalExpenses: BehaviorSubject<number>;
   private readonly todayTotalReturn: BehaviorSubject<number>;
   private readonly currency: BehaviorSubject<string>;
+  private readonly _email: BehaviorSubject<string>;
+  private readonly _name: BehaviorSubject<string>;
 
   constructor(private httpClient: HttpClient) {
     this._expenses = new BehaviorSubject<ExpenseInterface[]>(null);
@@ -21,6 +23,8 @@ export class DataService {
     this.todayTotalExpenses = new BehaviorSubject<number>(0);
     this.todayTotalReturn = new BehaviorSubject<number>(0);
     this.currency = new BehaviorSubject<string>('');
+    this._email = new BehaviorSubject<string>('');
+    this._name = new BehaviorSubject<string>('');
 
    }
 
@@ -141,6 +145,32 @@ export class DataService {
         return data;
       })
     )
+  }
+
+  getEmailSubscription(): BehaviorSubject<string>{
+
+    return this._email;
+  }
+
+  async setEmail(email: string): Promise<void>{
+    return this._email.next(email);
+  }
+
+  async getEmail(): Promise<string>{
+    return this._email.getValue();
+  }
+
+
+  getNameSubscription(): BehaviorSubject<string>{
+    return this._name;
+  }
+
+  async setName(name: string): Promise<void>{
+    return this._name.next(name);
+  }
+
+  async getName(): Promise<string>{
+    return this._name.getValue();
   }
  
 }

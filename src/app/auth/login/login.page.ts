@@ -119,6 +119,27 @@ export class LoginPage implements OnInit{
     });
   }
 
+  facebookSignin(){
+    this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
+     
+      this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+      this.storage.saveToLocalStorage("WB_name",userCredential.user.displayName).then(()=>{
+        this.dataservice.setName(userCredential.user.displayName);
+      });
+      this.storage.saveToLocalStorage("WB_email",userCredential.user.email).then(()=>{
+        this.dataservice.setEmail(userCredential.user.email);
+      });
+
+      this.setCurrency(userCredential.user.uid);
+
+      this.route.navigate(['/tabs/dashboard']);
+
+    }).catch(()=>{
+
+      this.notification.presentToast("There is a facebook server error","danger");
+    });
+  }
+
   setCurrency(userid: string){
 
     this.settingRef = this.database.object('settings/'+userid);
