@@ -10,12 +10,14 @@ import {map} from 'rxjs/operators'
 export class DataService {
 
   private readonly _expenses: BehaviorSubject<ExpenseInterface[]>;
+  private readonly _monthlyExpenses: BehaviorSubject<ExpenseInterface[]>;
   private readonly todayTotalExpenses: BehaviorSubject<number>;
   private readonly todayTotalReturn: BehaviorSubject<number>;
   private readonly currency: BehaviorSubject<string>;
 
   constructor(private httpClient: HttpClient) {
     this._expenses = new BehaviorSubject<ExpenseInterface[]>(null);
+    this._monthlyExpenses = new BehaviorSubject<ExpenseInterface[]>(null);
     this.todayTotalExpenses = new BehaviorSubject<number>(0);
     this.todayTotalReturn = new BehaviorSubject<number>(0);
     this.currency = new BehaviorSubject<string>('');
@@ -33,6 +35,20 @@ export class DataService {
       this.setTodayTotalExpenses(this.calculateTodayTotal(expenses))
 
     return this._expenses.next(expenses);
+  }
+
+  async getMonthlyExpenses(): Promise<ExpenseInterface[]>{
+
+    return this._monthlyExpenses.getValue();
+  }
+
+  getMonthlyExpensesSubscription(): BehaviorSubject<ExpenseInterface[]>{
+
+    return this._monthlyExpenses;
+  }
+
+  async setMonthlyExpenses(expenses: ExpenseInterface[]): Promise<void>{
+    return this._monthlyExpenses.next(expenses);
   }
 
   setExpenesTotalAmount(expenses: ExpenseInterface[]){

@@ -19,29 +19,26 @@ export class MonthlyExpensesComponent implements OnInit {
   @Input() type: string;
   @Input() total: number;
 
-  
+  testExpenses?: ExpenseInterface[];
+
   currency: string;
   filterPrice: boolean;
   filterPriceUp: boolean;
+
+  monthlyExpenseSubscription: SubscriptionLike;
 
  
   constructor(
     private storage: StorageService,
     private modalController: ModalController,
     private dataservice: DataService,
+    private lodash: LodashService,
     ) { 
     this.setCurrency();
-
   }
 
   ngOnInit() {
-
-    // this.expensesSubscription = this.dataservice.getExpensesSubscription()
-    // .subscribe({
-    //   next:((data)=>{
-    //     this.expenses = data;
-    //   })
-    // })
+    
   }
 
   setCurrency(){
@@ -64,7 +61,7 @@ export class MonthlyExpensesComponent implements OnInit {
   
       if(b.amount > a.amount) return this.filterPriceUp? -1: 1;
     })
-  
+
     this.filterPrice = true;
     this.filterPriceUp = !this.filterPriceUp;
     

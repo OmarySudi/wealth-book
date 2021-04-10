@@ -17,17 +17,19 @@
         </ion-row>
       </ion-card-header>
     </ion-card>
-    <!-- <ion-button  expand="full" (click)="priceFilter()" fill="solid">
-              <ion-icon name="logo-usd"></ion-icon>
-              <ion-icon *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
-            </ion-button> -->
+
+    <ion-button  expand="full" (click)="priceFilter()" fill="solid">
+      <ion-text>Sort by amount</ion-text>
+      <ion-icon size="small" *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
+    </ion-button>
+
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content>
 
-    <ion-card *ngFor="let expense of expenses |catagory: type">
+    <ion-card *ngFor="let expense of expenses">
 
       <ion-toolbar [color]="expense.category == 'Return'?'primary':'danger'">
         <ion-text style="font-size:medium; margin-left:5px" [slot]="expense.category == 'Return'?'end':'start'"><b>{{expense.amount | customCurrency:currency }}</b></ion-text>

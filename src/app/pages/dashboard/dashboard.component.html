@@ -48,11 +48,9 @@
               >
                 
               </ion-datetime>
-  
             </ion-item>
-  
-        
           </ion-col>
+
           <ion-col size="2">
             <ion-button  expand="full" fill="solid" (click)="selectedValue.open()">Type</ion-button>
             <ion-item hidden>
@@ -68,10 +66,6 @@
 
           </ion-col>
           <ion-col size="4">
-            <!-- <ion-button  expand="full" (click)="priceFilter()" fill="solid">
-              <ion-icon name="logo-usd"></ion-icon>
-              <ion-icon *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
-            </ion-button> -->
             <ion-button  expand="full" fill="solid" (click)="selectedCategoryValue.open()">Category</ion-button>
             <ion-item hidden>
               <ion-select  formControlName="category" interface="popover" #selectedCategoryValue>
@@ -84,12 +78,6 @@
       </ion-footer>
     </ion-card>
   </ion-toolbar>
-
-  <!-- <ion-button  expand="full" (click)="priceFilter()" fill="solid">
-    <ion-icon name="logo-usd"></ion-icon>
-    <ion-icon *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
-  </ion-button> -->
-
 </ion-header>
 
 <ion-content>

@@ -31,6 +31,9 @@ export class ReportComponent implements OnInit {
   totalMonthlyReturn: number;
 
   expenses: ExpenseInterface[] = [];
+
+  filteredExpenses: ExpenseInterface[] = [];
+
   expensesRef: AngularFireList<ExpenseInterface>;
 
   currentMonth: string;
@@ -196,16 +199,25 @@ export class ReportComponent implements OnInit {
   }
 
   async openExpensesDialog(type: string,total:number){
+
+    this.filterArray(type);
+
     const modal = await this.modalController.create({
       component: MonthlyExpensesComponent,
       cssClass: 'my-custom-class',
       componentProps: {
-        'expenses': this.expenses,
+        'expenses': this.filteredExpenses,
         'type': type,
         'total': total,
       }
     });
     return await modal.present();
+  }
+
+  filterArray(type: string): void{
+
+    this.filteredExpenses = this.expenses.filter(expense=>expense.type == type)
+
   }
 
 }
