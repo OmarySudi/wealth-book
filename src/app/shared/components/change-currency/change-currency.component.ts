@@ -20,6 +20,8 @@ export class ChangeCurrencyComponent implements OnInit {
   currencyKeys: string[];
   settingref: AngularFireObject<Setting>;
   setting: Setting;
+
+  checkboxChecked: boolean;
   
 
   changeCurrencyForm = new FormGroup({
@@ -62,6 +64,8 @@ export class ChangeCurrencyComponent implements OnInit {
       let userid = res.value;
       
       this.setting = this.changeCurrencyForm.value;
+      console.log(this.setting);
+      
 
       this.settingref = this.database.object('settings/'+userid);
 
@@ -76,6 +80,10 @@ export class ChangeCurrencyComponent implements OnInit {
       })
 
     });
+  }
+
+  toggleChecked(){
+    this.checkboxChecked = !this.checkboxChecked;
   }
 
 }
