@@ -56,6 +56,9 @@ export class AccountComponent implements OnInit {
 
   logoutUser(){
     this.auth.signOut().then(()=>{
+      this.storageservice.removeFromLocalStorage("WB_userid");
+      this.storageservice.removeFromLocalStorage("WB_email");
+      this.storageservice.removeFromLocalStorage("WB_name");
       this.router.navigate(['/auth/login'])
     }).catch(()=>{
       this.notification.presentToast("There is an error during logout, try again later","red");
