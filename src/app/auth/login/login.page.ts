@@ -58,9 +58,9 @@ export class LoginPage implements OnInit{
 
             let user = firebase.auth().currentUser;
         
-            this.storage.saveToLocalStorage("userid",user.uid);
-            this.storage.saveToLocalStorage("name",user.displayName);
-            this.storage.saveToLocalStorage("email",user.email);
+            this.storage.saveToLocalStorage("WB_userid",user.uid);
+            this.storage.saveToLocalStorage("WB_name",user.displayName);
+            this.storage.saveToLocalStorage("WB_email",user.email);
 
             this.setCurrency(user.uid);
 
