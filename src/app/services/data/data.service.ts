@@ -132,7 +132,7 @@ export class DataService {
 
     for(const expense of expenses){
 
-      if(expense.category == "Return")
+      if(expense.category == "Income")
         total+=expense.amount;
     }
     return total;

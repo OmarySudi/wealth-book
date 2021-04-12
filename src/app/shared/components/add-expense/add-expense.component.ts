@@ -92,7 +92,7 @@ export class AddExpenseComponent implements OnInit {
 
     let expense: ExpenseInterface = this.addExpenseForm.value;
   
-    if(expense.category == "Return"){
+    if(expense.category == "Income"){
       this.isReturn = true;
       this.isExpense = false;
     }else {

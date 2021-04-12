@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Edit Expense</ion-title>
+    <ion-title>Edit Item</ion-title>
     <ion-button (click)="dismiss()" slot="end" fill="outline" color="danger">
       <ion-icon  name="close-circle-outline"></ion-icon>
     </ion-button>
@@ -27,7 +27,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-item *ngIf="category == 'Return'">
+    <ion-item *ngIf="category == 'Income'">
       <ion-label>Select type</ion-label>
       <ion-select value="brown" okTextexpression="Ok" cancelText="Cancel" formControlName="type" interface="popover">
           <ion-select-option [value]="type.value" *ngFor="let type of creditTypes | keyvalue">{{ type.value}}</ion-select-option>

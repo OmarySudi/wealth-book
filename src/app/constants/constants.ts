@@ -13,7 +13,7 @@ export enum ExpenseTypes{
 
 export enum Category{
 
-    Return = "Return",
+    Return = "Income",
     Expense  = "Expense",
 }
 

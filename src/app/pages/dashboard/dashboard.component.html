@@ -15,7 +15,7 @@
               <h6>Expenses: {{todayTotalExpenses | customCurrency: currency}}</h6>
             </ion-text>
             <ion-text>
-              <h6>Returns: {{todayTotalReturns | customCurrency: currency}}</h6>
+              <h6>Income: {{todayTotalReturns | customCurrency: currency}}</h6>
             </ion-text>
       
           </ion-col>
@@ -60,7 +60,7 @@
                   <ion-select-option disabled>Expense Types</ion-select-option>
                   <ion-select-option  [value]="name" *ngFor="let name of expenseTypesKeys">{{expenseTypes[name]}}</ion-select-option>
                  
-                  <ion-select-option disabled>Return Types</ion-select-option>
+                  <ion-select-option disabled>Income Types</ion-select-option>
                   <ion-select-option  [value]="name" *ngFor="let name of creditTypesKeys">{{creditTypes[name]}}</ion-select-option>
               </ion-select>
             </ion-item>
@@ -89,8 +89,8 @@
  
     <ion-card *ngFor="let expense of expenses | category: selectedCategoryValue.value  | catagory: selectedValue.value">
 
-      <ion-toolbar [color]="expense.category == 'Return'?'primary':'danger'">
-        <ion-buttons [slot]="expense.category == 'Return'?'':'end'">
+      <ion-toolbar [color]="expense.category == 'Income'?'primary':'danger'">
+        <ion-buttons [slot]="expense.category == 'Income'?'':'end'">
           <!-- <ion-button>
             <ion-icon size="large" name="help-circle-outline"></ion-icon>
           </ion-button> -->
@@ -99,7 +99,7 @@
           </ion-button>
         </ion-buttons>
   
-        <ion-text style="font-size:medium;" [slot]="expense.category == 'Return'?'end':''"><b>{{expense.amount | customCurrency:currency }}</b></ion-text>
+        <ion-text style="font-size:medium;" [slot]="expense.category == 'Income'?'end':''"><b>{{expense.amount | customCurrency:currency }}</b></ion-text>
       </ion-toolbar>
   
       <ion-card-content>
@@ -111,7 +111,7 @@
         <ion-footer>
           <ion-grid fixed>
             <ion-row>
-              <ion-col size="12" [offset]="expense.category == 'Return'?'8':''">
+              <ion-col size="12" [offset]="expense.category == 'Income'?'8':''">
                 <ion-text>{{expense.category}}:{{expense.type}}</ion-text>
               </ion-col>
             </ion-row>

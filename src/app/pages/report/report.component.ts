@@ -118,7 +118,7 @@ export class ReportComponent implements OnInit {
                 this.expenseCategoriesMap.set(expenseinterface.type,expenseinterface.amount) 
               }
 
-            }else if(expenseinterface.category == "Return"){
+            }else if(expenseinterface.category == "Income"){
               this.totalMonthlyReturn+=expenseinterface.amount;
               if(this.returnCategoriesMap.has(expenseinterface.type))
               {
