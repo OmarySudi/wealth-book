@@ -31,6 +31,8 @@ export class DashboardComponent implements OnInit,OnDestroy{
   currencySubscription: SubscriptionLike;
   todayTotalExpensesSubscription: SubscriptionLike;
   todayTotalReturnsSubscription: SubscriptionLike;
+  creditTypeSubscription: SubscriptionLike;
+  expenseTypeSubscription: SubscriptionLike;
   todayTotalReturns: number;
   todayTotalExpenses: number;
   todayDate: Date;
@@ -38,11 +40,8 @@ export class DashboardComponent implements OnInit,OnDestroy{
   selectedDate: Date;
   // expenseTypes: any;
   expenseTypes = ExpenseTypes;
-  expenseTypesKeys = [];
-
   creditTypes = CreditTypes;
-  creditTypesKeys = [];
-
+  
   category = Category;
   categoryKeys = [];
   
@@ -53,8 +52,10 @@ export class DashboardComponent implements OnInit,OnDestroy{
   loader: boolean;
 
   setting: Setting;
-
   settingRef: AngularFireObject<Setting>;
+
+  creditTypesArray: string[]
+  expenseTypesArray: string[]
 
   constructor(
     private modalController:ModalController,
@@ -77,13 +78,15 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.installDate = this.datetimeservice.installDate;
     // this.expenseTypes = ExpenseTypes;
     //this.storage.saveExpenseToDatabase();
-    this.expenseTypesKeys = Object.keys(this.expenseTypes);
-    this.creditTypesKeys = Object.keys(this.creditTypes)
+    // this.expenseTypesKeys = Object.keys(this.expenseTypes);
+    // this.creditTypesKeys = Object.keys(this.creditTypes)
     this.categoryKeys = Object.keys(this.category);
    
   }
 
   ngOnInit() {
+
+    this.setExpenseTypesArray()
 
     this.dateSubscription = this.datetimeservice.getSelectedDateSubscription()
       .subscribe({
@@ -141,7 +144,36 @@ export class DashboardComponent implements OnInit,OnDestroy{
       }
       );
 
-      
+
+    this.expenseTypeSubscription = this.dataservice.getExpenseTypesSubscription().
+      subscribe({
+        next:((expense: string[])=>{
+          this.expenseTypesArray = expense;
+        }),
+        error: (()=>{
+
+        }),
+
+        complete: (()=>{
+
+        })
+
+      });
+
+    this.creditTypeSubscription = this.dataservice.getIncomeTypesSubscription().
+      subscribe({
+        next:((income: string[])=>{
+          this.creditTypesArray = income;
+        }),
+        error: (()=>{
+
+        }),
+
+        complete: (()=>{
+
+        })
+
+      });
   }
 
   async presentModal() {
@@ -304,11 +336,36 @@ getAllExpenses(date?: Date){
   });
 }
 
-setCurrency(){
-  this.storage.getFromLocalStorage("WB_currency").then((res)=>{
-    this.currency = res.value;
-  });
-}
+  setCurrency(){
+    this.storage.getFromLocalStorage("WB_currency").then((res)=>{
+      this.currency = res.value;
+    });
+  }
+
+  setExpenseTypesArray(): void{
+      this.storage.getFromLocalStorage("WB_userid").then((res)=>{
+
+        let userid = res.value;
+        let userSetting: Setting;
+        
+        this.settingRef = this.database.object('settings/'+userid);
+        this.settingRef.query.get().then((snapshot)=>{
+
+          if(!this.lodash.isNull(snapshot.val())){
+            userSetting = snapshot.val();
+            this.creditTypesArray = Object.keys(this.creditTypes).concat(userSetting.incomeTypes)
+            this.expenseTypesArray = Object.keys(this.expenseTypes).concat(userSetting.expenseTypes);
+            console.log(this.creditTypesArray)
+            console.log(this.expenseTypesArray)
+
+          }else{
+            this.creditTypesArray = Object.keys(this.creditTypes);
+            this.expenseTypesArray = Object.keys(this.expenseTypes);
+          }
+
+        })
+    });
+  }
 
 }
 

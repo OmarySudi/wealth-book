@@ -6,6 +6,7 @@ import { Setting } from 'src/app/interfaces/setting';
 import {DataService} from 'src/app/services/data/data.service'
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import {LodashService} from 'src/app/services/lodash/lodash.service'
 
 @Component({
   selector: 'app-change-currency',
@@ -20,6 +21,7 @@ export class ChangeCurrencyComponent implements OnInit {
   currencyKeys: string[];
   settingref: AngularFireObject<Setting>;
   setting: Setting;
+  temporarySetting: Setting;
 
   checkboxChecked: boolean;
   
@@ -33,7 +35,8 @@ export class ChangeCurrencyComponent implements OnInit {
     private dataservice: DataService,
     private storage: StorageService,
     private database: AngularFireDatabase,
-    private notification: NotificationService) { 
+    private notification: NotificationService,
+    private lodash: LodashService,) { 
     //this.currencies = Currencies;
   }
 
@@ -63,22 +66,32 @@ export class ChangeCurrencyComponent implements OnInit {
 
       let userid = res.value;
       
-      this.setting = this.changeCurrencyForm.value;
-      console.log(this.setting);
-      
-
+      this.temporarySetting = this.changeCurrencyForm.value;
+  
       this.settingref = this.database.object('settings/'+userid);
 
-      this.settingref.set(this.setting).then(()=>{
-        this.storage.saveToLocalStorage('WB_currency',this.setting.currency).then(()=>{
-          this.dataservice.setCurrency(this.setting.currency).then(()=>{
-            this.dismiss();
-          })
-        });
-      }).catch(()=>{
-        this.notification.presentToast("There is internal servor error","danger");
-      })
+      this.settingref.query.get().then((snapshot)=>{
 
+        if(!this.lodash.isNull(snapshot.val())){
+          this.setting = snapshot.val();
+          this.setting.currency = this.temporarySetting.currency;
+        }else{
+          this.setting = this.changeCurrencyForm.value
+          this.setting.expenseTypes = [''];
+          this.setting.incomeTypes = [''];
+        }
+
+      }).then(()=>{
+          this.settingref.set(this.setting).then(()=>{
+            this.storage.saveToLocalStorage('WB_currency',this.setting.currency).then(()=>{
+              this.dataservice.setCurrency(this.setting.currency).then(()=>{
+                this.dismiss();
+              })
+            });
+          }).catch(()=>{
+            this.notification.presentToast("There is internal servor error","danger");
+          })
+          })
     });
   }
 

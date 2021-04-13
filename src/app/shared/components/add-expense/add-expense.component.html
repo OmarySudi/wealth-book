@@ -12,7 +12,7 @@
   <form [formGroup]="addExpenseForm">
 
     <ion-item>
-      <ion-label>Select category</ion-label>
+      <ion-label>Category</ion-label>
       <ion-select value="brown" (ionChange)="showCategoryMenu()" okText="Ok" cancelText="Cancel" formControlName="category" interface="popover">
           <ion-select-option  [value]="type.value" *ngFor="let type of category | keyvalue">{{ type.value}}</ion-select-option>
       </ion-select>
@@ -29,21 +29,29 @@
       <ion-input placeholder="description" type="text" formControlName="description"></ion-input>
     </ion-item>
 
-    <ion-item *ngIf="isExpense">
-      <ion-label>Select type</ion-label>
-      <ion-select value="brown" okText="Ok" cancelText="Cancel" formControlName="type" interface="popover">
-          <ion-select-option [value]="type.value" *ngFor="let type of expenseTypes | keyvalue">{{ type.value}}</ion-select-option>
+    <ion-item *ngIf="isExpense && !checkboxChecked">
+      <ion-label>Expense Type</ion-label>
+      <ion-select value="brown" okText="Ok" cancelText="Cancel" [formControlName]="checkboxChecked?'':'type'" interface="popover">
+          <ion-select-option [value]="type" *ngFor="let type of expenseTypesArray">{{ type }}</ion-select-option>
       </ion-select>
     </ion-item>
 
-     <ion-item *ngIf="isReturn">
-      <ion-label>Select type</ion-label>
-      <ion-select value="brown" okText="Ok" cancelText="Cancel" formControlName="type" interface="popover">
-          <ion-select-option [value]="type.value" *ngFor="let type of creditTypes | keyvalue">{{ type.value}}</ion-select-option>
+    <ion-item *ngIf="isReturn && !checkboxChecked">
+      <ion-label>Income Type</ion-label>
+      <ion-select value="brown" okText="Ok" cancelText="Cancel" [formControlName]="checkboxChecked?'':'type'" interface="popover">
+          <ion-select-option [value]="type" *ngFor="let type of creditTypesArray">{{ type}}</ion-select-option>
       </ion-select>
     </ion-item>
-    
 
+    <ion-item *ngIf="checkboxChecked">
+      <ion-input [placeholder]="isReturn?'Enter custom type of your income':'Enter custom type of your expense'" type="text" [formControlName]="checkboxChecked?'type':''"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="isReturn || isExpense" style="margin-top:20px">
+      <ion-label>Enter custom type if not listed</ion-label>
+      <ion-checkbox color="primary" slot="start" (click)="toggleChecked()"></ion-checkbox>
+    </ion-item>
+  
     <ion-button (click)="initCreateExpense()"  [disabled]="!addExpenseForm.valid" size="large" expand="block" fill="solid" >Add</ion-button>
    
   </form>

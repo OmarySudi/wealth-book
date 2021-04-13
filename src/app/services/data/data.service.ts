@@ -11,6 +11,8 @@ export class DataService {
 
   private readonly _expenses: BehaviorSubject<ExpenseInterface[]>;
   private readonly _monthlyExpenses: BehaviorSubject<ExpenseInterface[]>;
+  private readonly _expenseTypes: BehaviorSubject<string[]>;
+  private readonly _incomeTypes: BehaviorSubject<string[]>;
   private readonly todayTotalExpenses: BehaviorSubject<number>;
   private readonly todayTotalReturn: BehaviorSubject<number>;
   private readonly currency: BehaviorSubject<string>;
@@ -20,6 +22,8 @@ export class DataService {
   constructor(private httpClient: HttpClient) {
     this._expenses = new BehaviorSubject<ExpenseInterface[]>(null);
     this._monthlyExpenses = new BehaviorSubject<ExpenseInterface[]>(null);
+    this._expenseTypes = new BehaviorSubject<string[]>(null);
+    this._incomeTypes = new BehaviorSubject<string[]>(null);
     this.todayTotalExpenses = new BehaviorSubject<number>(0);
     this.todayTotalReturn = new BehaviorSubject<number>(0);
     this.currency = new BehaviorSubject<string>('');
@@ -172,5 +176,37 @@ export class DataService {
   async getName(): Promise<string>{
     return this._name.getValue();
   }
+
+  getIncomeTypesSubscription(): BehaviorSubject<string[]>{
+
+    return this._incomeTypes;
+  }
+
+  async setIncomeTypes(incomeTypes: string[]): Promise<void>{
+
+    return this._incomeTypes.next(incomeTypes);
+  }
+
+  async getIncomeTypes(): Promise<string[]>{
+
+    return this._incomeTypes.getValue();
+  }
+
+  getExpenseTypesSubscription(): BehaviorSubject<string[]>{
+
+    return this._expenseTypes;
+  }
+
+  async setExpenseTypes(expenseTypes: string[]): Promise<void>{
+
+    return this._expenseTypes.next(expenseTypes);
+  }
+
+  async getExpenseTypes(): Promise<string[]>{
+
+    return this._expenseTypes.getValue();
+  }
+
+ 
  
 }

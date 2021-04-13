@@ -23,14 +23,14 @@
     <ion-item *ngIf="category == 'Expense'">
       <ion-label>Select type</ion-label>
       <ion-select value="brown" okText="Ok" cancelText="Cancel" formControlName="type" interface="popover">
-          <ion-select-option [value]="type.value" *ngFor="let type of expenseTypes | keyvalue">{{ type.value}}</ion-select-option>
+          <ion-select-option [value]="type" *ngFor="let type of expenseTypesArray">{{type}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item *ngIf="category == 'Income'">
       <ion-label>Select type</ion-label>
       <ion-select value="brown" okTextexpression="Ok" cancelText="Cancel" formControlName="type" interface="popover">
-          <ion-select-option [value]="type.value" *ngFor="let type of creditTypes | keyvalue">{{ type.value}}</ion-select-option>
+          <ion-select-option [value]="type" *ngFor="let type of creditTypesArray">{{type}}</ion-select-option>
       </ion-select>
     </ion-item>
 

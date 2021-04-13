@@ -58,10 +58,10 @@
               <ion-select  formControlName="type" interface="popover" #selectedValue>
                  
                   <ion-select-option disabled>Expense Types</ion-select-option>
-                  <ion-select-option  [value]="name" *ngFor="let name of expenseTypesKeys">{{expenseTypes[name]}}</ion-select-option>
+                  <ion-select-option  [value]="type" *ngFor="let type of expenseTypesArray">{{type}}</ion-select-option>
                  
                   <ion-select-option disabled>Income Types</ion-select-option>
-                  <ion-select-option  [value]="name" *ngFor="let name of creditTypesKeys">{{creditTypes[name]}}</ion-select-option>
+                  <ion-select-option  [value]="type" *ngFor="let type of creditTypesArray">{{type}}</ion-select-option>
               </ion-select>
             </ion-item>
 
