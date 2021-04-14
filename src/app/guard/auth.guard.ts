@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+   
     return new Promise((resolve,reject)=>{
       this.angularAuth.onAuthStateChanged((user: firebase.User)=>{
         if(user){
@@ -23,7 +24,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
           this.router.navigate(['/auth/login'])
           resolve(false)
         }
-      })
+    })
 
     })
   }

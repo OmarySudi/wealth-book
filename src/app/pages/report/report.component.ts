@@ -7,6 +7,7 @@ import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { MonthlyExpensesComponent } from 'src/app/shared/components/monthly-expenses/monthly-expenses.component';
 
 @Component({
@@ -40,14 +41,23 @@ export class ReportComponent implements OnInit {
   currentYear: string;
   loader: boolean;
 
+  monthly: boolean;
+  annually: boolean;
+  title: string;
+
   constructor(
     private datetimeservice: DatetimeService,
     private storage: StorageService,
     private database: AngularFireDatabase,
+    private loadingController: LoadingController,
     private modalController: ModalController) { 
 
-    this.getMonthlyReport();
+    this.title = "Monthly"
 
+    this.monthly = true;
+
+    this.getMonthlyReport();
+  
     this.getListOfYears();
 
     this.monthKeys = Object.keys(this.months)
@@ -144,11 +154,107 @@ export class ReportComponent implements OnInit {
   
     })
   }
- 
 
+  getAnuallyReport(year?: string){
+
+    this.loader = true;
+    //this.presentLoading();
+
+    let userid = "";
+    let fetchedYear = "";
+
+    if(year){
+      fetchedYear = year;
+    }else{
+      this.setCurrentYear();
+      fetchedYear = this.currentYear;
+    }
+
+    this.storage.getFromLocalStorage("WB_userid").then((res)=>{
+
+      userid = res.value;
+
+      this.expensesRef = this.database.list('users/'+userid+'/'+fetchedYear);
+      
+      this.expensesRef.snapshotChanges().pipe(
+      
+      map((changes)=> {
+
+        let object = [];
+
+        changes.map((c)=> {
+          object.push(c.payload.val())
+        })
+      
+        return object;
+      })
+      ).subscribe(data => {
+    
+        this.expenseCategoriesMap = new Map();
+        this.returnCategoriesMap = new Map();
+        this.totalMonthlyExpense = 0;
+        this.totalMonthlyReturn = 0;
+
+        this.expenses = [];
+
+        for(let test of data){
+
+          Object.keys(test).map((key)=>{
+
+            let test2 = test[key];
+
+            Object.keys(test2).map((key)=>{
+
+              let expenseinterface: ExpenseInterface;
+
+              expenseinterface = test2[key];
+
+              this.expenses.unshift(expenseinterface);
+
+              if(expenseinterface.category == "Expense"){
+                this.totalMonthlyExpense+=expenseinterface.amount;
+                if(this.expenseCategoriesMap.has(expenseinterface.type))
+                {
+                  let amount  = this.expenseCategoriesMap.get(expenseinterface.type)
+                  amount+=expenseinterface.amount;
+                  this.expenseCategoriesMap.set(expenseinterface.type,amount);
+  
+                }else{
+                  this.expenseCategoriesMap.set(expenseinterface.type,expenseinterface.amount) 
+                }
+  
+              }else if(expenseinterface.category == "Income"){
+                this.totalMonthlyReturn+=expenseinterface.amount;
+                if(this.returnCategoriesMap.has(expenseinterface.type))
+                {
+                  let amount  = this.returnCategoriesMap.get(expenseinterface.type)
+                  amount+=expenseinterface.amount;
+                  this.returnCategoriesMap.set(expenseinterface.type,amount);
+  
+                }else{
+                  this.returnCategoriesMap.set(expenseinterface.type,expenseinterface.amount) 
+                }
+              }
+              
+            })
+          })
+        }
+
+        this.loader = false;
+        // this.loadingController.dismiss();
+
+        this.setExpenseCategories(this.expenseCategoriesMap);
+        
+        this.setReturnCategories(this.returnCategoriesMap);
+
+      });
+  
+    })
+  }
+
+  
   ngOnInit() {
 
-   
   }
 
   onClickDate(){
@@ -160,7 +266,16 @@ export class ReportComponent implements OnInit {
   }
 
   changeSelectedYear(year:string){
-    this.getMonthlyReport(this.currentYear,this.currentMonth);
+
+    if(this.monthly)
+      this.getMonthlyReport(this.currentYear,this.currentMonth);
+    else if(this.annually)
+    {
+      console.log("annually");
+      
+      this.getAnuallyReport(this.currentYear)
+    }
+      
   }
 
   setExpenseCategories(expenseCategoriesMap: Iterable<unknown> | ArrayLike<unknown>){
@@ -218,6 +333,32 @@ export class ReportComponent implements OnInit {
 
     this.filteredExpenses = this.expenses.filter(expense=>expense.type == type)
 
+  }
+
+  changeTitle(title: string): void{
+
+    if(title == "Monthly"){
+        this.annually = false;
+        this.monthly = true;
+        this.getMonthlyReport();
+    }
+    else if(title == "Annually"){
+
+        this.monthly = false;
+        this.annually = true;
+        this.getAnuallyReport();
+    }
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
 }
