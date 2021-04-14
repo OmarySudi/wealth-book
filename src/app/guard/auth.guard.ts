@@ -1,15 +1,31 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import firebase from 'firebase/app';
+import {AngularFireAuth} from '@angular/fire/auth'
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
+
+  constructor(private router: Router, private angularAuth: AngularFireAuth) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    return new Promise((resolve,reject)=>{
+      this.angularAuth.onAuthStateChanged((user: firebase.User)=>{
+        if(user){
+          resolve(true)
+        }else{
+          this.router.navigate(['/auth/login'])
+          resolve(false)
+        }
+      })
+
+    })
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,

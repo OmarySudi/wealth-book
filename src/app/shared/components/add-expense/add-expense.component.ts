@@ -77,35 +77,35 @@ export class AddExpenseComponent implements OnInit {
  
   ngOnInit() {
 
-    this.expenseTypeSubscription = this.dataservice.getExpenseTypesSubscription().
-      subscribe({
-        next:((expense: string[])=>{
-          this.expenseTypesArray = expense;
-        }),
-        error: (()=>{
+    // this.expenseTypeSubscription = this.dataservice.getExpenseTypesSubscription().
+    //   subscribe({
+    //     next:((expense: string[])=>{
+    //       this.expenseTypesArray = expense;
+    //     }),
+    //     error: (()=>{
 
-        }),
+    //     }),
 
-        complete: (()=>{
+    //     complete: (()=>{
 
-        })
+    //     })
 
-      });
+    //   });
 
-    this.creditTypeSubscription = this.dataservice.getIncomeTypesSubscription().
-      subscribe({
-        next:((income: string[])=>{
-          this.creditTypesArray = income;
-        }),
-        error: (()=>{
+    // this.creditTypeSubscription = this.dataservice.getIncomeTypesSubscription().
+    //   subscribe({
+    //     next:((income: string[])=>{
+    //       this.creditTypesArray = income;
+    //     }),
+    //     error: (()=>{
 
-        }),
+    //     }),
 
-        complete: (()=>{
+    //     complete: (()=>{
 
-        })
+    //     })
 
-      });
+    //   });
 
   }
 

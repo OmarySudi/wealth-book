@@ -7,6 +7,7 @@ import {Router} from '@angular/router'
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SubscriptionLike } from 'rxjs';
 import { DataService } from 'src/app/services/data/data.service';
+import {AuthService} from 'src/app/auth/auth/auth.service'
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private storageservice: StorageService,
+    private authService: AuthService,
     private dataservice: DataService,
     private alertcontroller: AlertController,
     private actionSheetController: ActionSheetController,
@@ -89,14 +91,7 @@ export class AccountComponent implements OnInit {
   }
 
   logoutUser(){
-    this.auth.signOut().then(()=>{
-      this.storageservice.removeFromLocalStorage("WB_userid");
-      this.storageservice.removeFromLocalStorage("WB_email");
-      this.storageservice.removeFromLocalStorage("WB_name");
-      this.router.navigate(['/auth/login'])
-    }).catch(()=>{
-      this.notification.presentToast("There is an error during logout, try again later","red");
-    })
+   this.authService.logout();
   }
 
   async presentActionSheet() {
