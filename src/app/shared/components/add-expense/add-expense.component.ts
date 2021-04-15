@@ -183,6 +183,15 @@ export class AddExpenseComponent implements OnInit {
           this.creditTypesArray = Object.keys(this.creditTypes).concat(this.setting.incomeTypes)
           this.expenseTypesArray = Object.keys(this.expenseTypes).concat(this.setting.expenseTypes);
 
+          this.setting.incomeTypes.forEach((data)=>{
+            if(data !== '')
+              this.creditTypesArray.push(data);
+          })
+          this.setting.expenseTypes.forEach((data)=>{
+            if(data !== '')
+              this.expenseTypesArray.push(data);
+          })
+
           this.dataservice.setIncomeTypes(this.creditTypesArray);
           this.dataservice.setExpenseTypes(this.expenseTypesArray)
 
@@ -233,8 +242,17 @@ export class AddExpenseComponent implements OnInit {
 
           if(!this.lodash.isNull(snapshot.val())){
             userSetting = snapshot.val();
-            this.creditTypesArray = Object.keys(this.creditTypes).concat(userSetting.incomeTypes)
-            this.expenseTypesArray = Object.keys(this.expenseTypes).concat(userSetting.expenseTypes);
+            this.creditTypesArray = Object.keys(this.creditTypes)
+            this.expenseTypesArray = Object.keys(this.expenseTypes);
+
+            userSetting.incomeTypes.forEach((data)=>{
+              if(data !== '')
+                this.creditTypesArray.push(data);
+            })
+            userSetting.expenseTypes.forEach((data)=>{
+              if(data !== '')
+                this.expenseTypesArray.push(data);
+            })
 
           }else{
             this.creditTypesArray = Object.keys(this.creditTypes);

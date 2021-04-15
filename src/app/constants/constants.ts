@@ -3,8 +3,7 @@ export enum StorageKeys{
 }
 
 export enum ExpenseTypes{
-
-    All ="All",
+    
     General ="General",
     Shopping ="Shopping",
     Movie ="Movie",

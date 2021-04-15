@@ -353,10 +353,19 @@ getAllExpenses(date?: Date){
 
           if(!this.lodash.isNull(snapshot.val())){
             userSetting = snapshot.val();
-            this.creditTypesArray = Object.keys(this.creditTypes).concat(userSetting.incomeTypes)
-            this.expenseTypesArray = Object.keys(this.expenseTypes).concat(userSetting.expenseTypes);
-            console.log(this.creditTypesArray)
-            console.log(this.expenseTypesArray)
+            
+            this.creditTypesArray = Object.keys(this.creditTypes)
+            this.expenseTypesArray = Object.keys(this.expenseTypes)
+            
+            userSetting.incomeTypes.forEach((data)=>{
+              if(data !== '')
+                this.creditTypesArray.push(data);
+            })
+            this.expenseTypesArray = Object.keys(this.expenseTypes)
+            userSetting.expenseTypes.forEach((data)=>{
+              if(data !== '')
+                this.expenseTypesArray.push(data);
+            })
 
           }else{
             this.creditTypesArray = Object.keys(this.creditTypes);
