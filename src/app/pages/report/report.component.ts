@@ -241,7 +241,7 @@ export class ReportComponent implements OnInit {
         }
 
         this.loader = false;
-        // this.loadingController.dismiss();
+        //this.loadingController.dismiss();
 
         this.setExpenseCategories(this.expenseCategoriesMap);
         

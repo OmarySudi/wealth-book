@@ -1,6 +1,14 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Reports</ion-title>
+    <ion-button (click)="selectedYear.open()" expand="block" fill="solid">
+      {{title}}
+      <ion-item hidden>
+        <ion-select interface="popover" #selectedYear [(ngModel)]="title" (ionChange)="changeTitle(title)">
+            <ion-select-option>Monthly</ion-select-option>
+            <ion-select-option>Annually</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-button>
   </ion-toolbar>
   <ion-row *ngIf="monthly">
     <ion-col size="6">
@@ -13,8 +21,6 @@
         </ion-item>
       </ion-button>
     </ion-col>
-    <!-- <ion-col size="3"></ion-col>
-    <ion-col size="2"></ion-col> -->
     <ion-col size="6">
       <ion-button (click)="selectedValue.open()" expand="block" fill="solid">
         {{currentMonth}}
@@ -43,24 +49,12 @@
 
  <ion-content>
 
-  <div style="position:absolute; top: 50%; left:50%">
-    <ion-spinner name="dots" *ngIf="loader"></ion-spinner>
-  </div>
+  
   
   <ion-card style="margin-left: 0px;margin-right: 0px;">
-    <ion-card-header>
-      <!-- <ion-card-title class="ion-text-center">Monthly Report</ion-card-title> -->
-      <ion-button (click)="selectedYear.open()" expand="block" fill="solid">
-        {{title}}
-        <ion-item hidden>
-          <ion-select interface="popover" #selectedYear [(ngModel)]="title" (ionChange)="changeTitle(title)">
-              <ion-select-option>Monthly</ion-select-option>
-              <ion-select-option>Annually</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-button>
-    </ion-card-header>
-
+    <div style="position:absolute; top:0%; left:50%">
+      <ion-spinner name="dots" *ngIf="loader"></ion-spinner>
+    </div>
     <ion-card-content>
       <ion-grid>
         <ion-row>
