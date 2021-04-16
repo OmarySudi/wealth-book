@@ -25,10 +25,6 @@
       <ion-input placeholder="amount" type="number" inputmode="decimal" formControlName="amount"></ion-input>
     </ion-item>
     
-    <ion-item>
-      <ion-input placeholder="description" type="text" formControlName="description"></ion-input>
-    </ion-item>
-
     <ion-item *ngIf="isExpense && !checkboxChecked">
       <ion-label>Expense Type</ion-label>
       <ion-select value="brown" okText="Ok" cancelText="Cancel" [formControlName]="checkboxChecked?'':'type'" interface="popover">
@@ -41,6 +37,10 @@
       <ion-select value="brown" okText="Ok" cancelText="Cancel" [formControlName]="checkboxChecked?'':'type'" interface="popover">
           <ion-select-option [value]="type" *ngFor="let type of creditTypesArray">{{ type}}</ion-select-option>
       </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input placeholder="description" type="text" formControlName="description"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="checkboxChecked">
