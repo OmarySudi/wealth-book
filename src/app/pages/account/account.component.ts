@@ -3,6 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { ActionSheetController } from '@ionic/angular';
 import { AngularFireAuth } from "@angular/fire/auth";
+import firebase from 'firebase/app';
 import {Router} from '@angular/router'
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { SubscriptionLike } from 'rxjs';
@@ -62,14 +63,21 @@ export class AccountComponent implements OnInit {
   }
 
   setEmailAndName(){
-    this.storageservice.getFromLocalStorage('WB_email').then((res)=>{
-      this.email = res.value
-      this.dataservice.setEmail(res.value);
-    } )
-    .then(()=>{
-      this.storageservice.getFromLocalStorage('WB_name').then((res)=>{
-        this.name = res.value;
-        this.dataservice.setName(res.value);
+    // this.storageservice.getFromLocalStorage('WB_email').then((res)=>{
+    //   this.email = res.value
+    //   this.dataservice.setEmail(res.value);
+    // } )
+    // .then(()=>{
+    //   this.storageservice.getFromLocalStorage('WB_name').then((res)=>{
+    //     this.name = res.value;
+    //     this.dataservice.setName(res.value);
+    //   })
+    // })
+    this.auth.currentUser.then((user: firebase.User)=>{
+      this.email = user.email;
+      this.name = user.displayName;
+      this.dataservice.setEmail(this.email).then(()=>{
+        this.dataservice.setName(this.name)
       })
     })
   }
