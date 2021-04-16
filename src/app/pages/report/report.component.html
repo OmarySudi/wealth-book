@@ -89,7 +89,15 @@
             </ion-item-group>
           </ion-col>
         </ion-row>
+       
       </ion-grid>
     </ion-card-content>
   </ion-card>
+  <ion-row *ngIf="loader == false">
+    <ion-col size="12" offset="3">
+      <div style="background-color:#69bb7b;width:50%;height:50px; color:white; padding: 10px 20px">
+        Net Balance: {{totalMonthlyReturn - totalMonthlyExpense}}
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-content>
