@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar [color]="category == 'Income'?'new':'favorite'">
     <ion-title>Edit Item</ion-title>
     <ion-button (click)="dismiss()" slot="end" fill="outline" color="light">
       <ion-icon  name="close-circle-outline"></ion-icon>
@@ -34,7 +34,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-button (click)="editExpense()"  [disabled]="!editExpenseForm.valid" size="large" expand="block" fill="solid" >Save</ion-button>
+    <ion-button (click)="editExpense()"  [color]="category == 'Income'?'new':'favorite'" [disabled]="!editExpenseForm.valid" size="large" expand="block" fill="solid" >Save</ion-button>
    
   </form>
 </ion-content>

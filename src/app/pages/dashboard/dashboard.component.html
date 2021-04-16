@@ -1,12 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-card style="margin-left:0px;margin-right:0px; margin-top:0px">
-      <ion-card-header color="primary">
+      <ion-card-header color="new">
         <ion-row *ngIf="currency !== ''">
           <ion-col size="8">
-
-            
-            
             <ion-button (click)="changeCurrency()" style="width:62%" expand="full" fill="solid" shape="round" color="light">
               <ion-card-subtitle>CURRENCY({{currency}})</ion-card-subtitle>
             </ion-button>
@@ -21,7 +18,7 @@
           </ion-col>
 
           <ion-col size="4">
-            <ion-card-subtitle>
+            <ion-card-subtitle style="color:white">
               {{ selectedDate | date}}
             </ion-card-subtitle>
           </ion-col>
@@ -32,10 +29,10 @@
         <ion-row>
   
           <ion-col size="3">
-            <ion-button (click)="setCurrentToTodayDate()" expand="full" fill="solid">Today</ion-button>
+            <ion-button (click)="setCurrentToTodayDate()" expand="full" color="new" fill="solid">Today</ion-button>
           </ion-col>
           <ion-col size="3">
-            <ion-button (click)="select.open()" expand="full" fill="solid" color="primary">Date</ion-button>
+            <ion-button (click)="select.open()" expand="full" fill="solid" color="new">Date</ion-button>
 
             <ion-item lines="none">
               <ion-datetime hidden
@@ -53,7 +50,7 @@
           </ion-col>
 
           <ion-col size="2">
-            <ion-button  expand="full" fill="solid" (click)="selectedValue.open()">Type</ion-button>
+            <ion-button  expand="full" fill="solid" color="new" (click)="selectedValue.open()">Type</ion-button>
             <ion-item hidden>
               <ion-select  formControlName="type" interface="popover" #selectedValue>
                  
@@ -69,7 +66,7 @@
 
           </ion-col>
           <ion-col size="4">
-            <ion-button  expand="full" fill="solid" (click)="selectedCategoryValue.open()">Category</ion-button>
+            <ion-button  expand="full" fill="solid" color="new" (click)="selectedCategoryValue.open()">Category</ion-button>
             <ion-item hidden>
               <ion-select  formControlName="category" interface="popover" #selectedCategoryValue>
                   <ion-select-option  value="All">All</ion-select-option>
@@ -91,7 +88,7 @@
  
     <ion-card *ngFor="let expense of expenses | category: selectedCategoryValue.value  | catagory: selectedValue.value">
 
-      <ion-toolbar [color]="expense.category == 'Income'?'primary':'danger'">
+      <ion-toolbar [color]="expense.category == 'Income'?'new':'favorite'">
         <ion-buttons [slot]="expense.category == 'Income'?'':'end'">
           <!-- <ion-button>
             <ion-icon size="large" name="help-circle-outline"></ion-icon>
@@ -127,7 +124,7 @@
 
    <!-- fab placed to the bottom end -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="presentModal()" color="success">
+    <ion-fab-button (click)="presentModal()" color="new">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

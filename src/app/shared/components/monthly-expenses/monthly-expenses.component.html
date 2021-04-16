@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-card style="margin-left:0px;margin-right:0px; margin-top:0px">
-      <ion-card-header color="primary">
+      <ion-card-header color="new">
       
         <ion-row>
           <ion-col size="9">
@@ -18,7 +18,7 @@
       </ion-card-header>
     </ion-card>
 
-    <ion-button  expand="full" (click)="priceFilter()" fill="solid">
+    <ion-button  expand="full" (click)="priceFilter()" color="new" fill="solid">
       <ion-text>Sort by amount</ion-text>
       <ion-icon size="small" *ngIf="filterPrice" [name]="filterPriceUp?'arrow-up-outline':'arrow-down-outline'"></ion-icon>
     </ion-button>
@@ -31,7 +31,7 @@
 
     <ion-card *ngFor="let expense of expenses">
 
-      <ion-toolbar [color]="expense.category == 'Income'?'primary':'danger'">
+      <ion-toolbar [color]="expense.category == 'Income'?'new':'favorite'">
         <ion-text style="font-size:medium; margin-left:5px" [slot]="expense.category == 'Income'?'end':'start'"><b>{{expense.amount | customCurrency:currency }}</b></ion-text>
         <ion-text style="font-size:medium;" [slot]="expense.category == 'Income'?'':'end'"><b>{{ expense.date}}</b></ion-text>
       </ion-toolbar>

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="new">
     <ion-title>Add Expense/Income</ion-title>
     <ion-button (click)="dismiss()" slot="end" fill="outline" color="light">
       <ion-icon  name="close-circle-outline"></ion-icon>
@@ -52,7 +52,7 @@
       <ion-checkbox color="primary" slot="start" (click)="toggleChecked()"></ion-checkbox>
     </ion-item>
   
-    <ion-button (click)="initCreateExpense()"  [disabled]="!addExpenseForm.valid" size="large" expand="block" fill="solid" >Add</ion-button>
+    <ion-button (click)="initCreateExpense()"  color="new" [disabled]="!addExpenseForm.valid" size="large" expand="block" fill="solid" >Add</ion-button>
    
   </form>
 
