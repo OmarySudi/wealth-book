@@ -59,8 +59,11 @@ export class LoginPage implements OnInit{
             let user = firebase.auth().currentUser;
         
             this.storage.saveToLocalStorage("WB_userid",user.uid);
-            this.storage.saveToLocalStorage("WB_name",user.displayName);
-            this.storage.saveToLocalStorage("WB_email",user.email);
+            // this.storage.saveToLocalStorage("WB_name",user.displayName);
+            // this.storage.saveToLocalStorage("WB_email",user.email);
+
+            this.dataservice.setEmail(user.email);
+            this.dataservice.setName(user.displayName);
 
             this.setCurrency(user.uid);
 
@@ -106,8 +109,9 @@ export class LoginPage implements OnInit{
     this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
      
       this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-      this.storage.saveToLocalStorage("WB_name",userCredential.user.displayName);
-      this.storage.saveToLocalStorage("WB_email",userCredential.user.email);
+
+      this.dataservice.setEmail(userCredential.user.email);
+      this.dataservice.setName(userCredential.user.displayName);
 
       this.setCurrency(userCredential.user.uid);
 
@@ -123,12 +127,9 @@ export class LoginPage implements OnInit{
     this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
      
       this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-      this.storage.saveToLocalStorage("WB_name",userCredential.user.displayName).then(()=>{
-        this.dataservice.setName(userCredential.user.displayName);
-      });
-      this.storage.saveToLocalStorage("WB_email",userCredential.user.email).then(()=>{
-        this.dataservice.setEmail(userCredential.user.email);
-      });
+
+      this.dataservice.setEmail(userCredential.user.email);
+      this.dataservice.setName(userCredential.user.displayName);
 
       this.setCurrency(userCredential.user.uid);
 

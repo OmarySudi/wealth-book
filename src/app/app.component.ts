@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { StorageKeys } from './constants/constants';
 import { DatetimeService } from './services/datetime/datetime.service';
 import { StorageService } from './services/storage/storage.service';
+import { DataService} from './services/data/data.service'
 import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {Router} from '@angular/router'
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit{
 
   constructor(
     private datetimeService: DatetimeService,
+    private dataservice: DataService,
     private storageservice: StorageService,
     private angularAuth: AngularFireAuth,
     private router: Router,
@@ -47,6 +49,8 @@ export class AppComponent implements OnInit{
   checkIfUserLoggedIn(){
     return this.angularAuth.onAuthStateChanged((user: firebase.User)=>{
       if(user){
+        this.dataservice.setEmail(user.email)
+        this.dataservice.setName(user.displayName)
         this.router.navigate(['/tabs/dashboard'])
       }else{
         this.router.navigate(['/auth/login'])

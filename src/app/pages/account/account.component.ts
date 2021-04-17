@@ -34,7 +34,7 @@ export class AccountComponent implements OnInit {
     private notification: NotificationService
     ) 
     { 
-      this.setEmailAndName();
+      
     }
 
   ngOnInit() {
@@ -60,19 +60,11 @@ export class AccountComponent implements OnInit {
 
         })   
       })
+
+      this.setEmailAndName();
   }
 
   setEmailAndName(){
-    // this.storageservice.getFromLocalStorage('WB_email').then((res)=>{
-    //   this.email = res.value
-    //   this.dataservice.setEmail(res.value);
-    // } )
-    // .then(()=>{
-    //   this.storageservice.getFromLocalStorage('WB_name').then((res)=>{
-    //     this.name = res.value;
-    //     this.dataservice.setName(res.value);
-    //   })
-    // })
     this.auth.currentUser.then((user: firebase.User)=>{
       this.email = user.email;
       this.name = user.displayName;

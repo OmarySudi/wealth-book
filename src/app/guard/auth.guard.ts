@@ -3,6 +3,7 @@ import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegmen
 import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth'
+import {DataService} from 'src/app/services/data/data.service'
 
 
 @Injectable({
@@ -10,7 +11,11 @@ import {AngularFireAuth} from '@angular/fire/auth'
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
 
-  constructor(private router: Router, private angularAuth: AngularFireAuth) {}
+  constructor(
+    private router: Router, 
+    private angularAuth: AngularFireAuth,
+    private dataservice: DataService
+    ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -19,6 +24,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     return new Promise((resolve,reject)=>{
       this.angularAuth.onAuthStateChanged((user: firebase.User)=>{
         if(user){
+          this.dataservice.setEmail(user.email)
+          this.dataservice.setName(user.displayName)
           resolve(true)
         }else{
           this.router.navigate(['/auth/login'])
