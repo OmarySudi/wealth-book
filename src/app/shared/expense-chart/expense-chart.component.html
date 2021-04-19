@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="new">
+    <ion-title>{{title}} expense Chart</ion-title>
+    <ion-button (click)="dismiss()" slot="end" fill="outline" color="light">
+      <ion-icon  name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+
+  <ion-card class="welcome-card">
+    <ion-card-content>
+      <google-chart [data]="pieChart"></google-chart>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

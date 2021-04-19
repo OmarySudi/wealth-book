@@ -8,6 +8,8 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 import { ModalController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { MonthlyExpensesComponent } from 'src/app/shared/components/monthly-expenses/monthly-expenses.component';
+import { ExpenseChartComponent } from 'src/app/shared/expense-chart/expense-chart.component';
+import { IncomeChartComponent } from 'src/app/shared/income-chart/income-chart.component';
 
 @Component({
   selector: 'app-report',
@@ -328,6 +330,36 @@ export class ReportComponent implements OnInit {
         'total': total,
       }
     });
+    return await modal.present();
+  }
+
+  async viewExpenseChart(expenseCategoriesKeys: any[],expenseCategories: {}){
+    const modal = await this.modalController.create({
+      component: ExpenseChartComponent,
+      componentProps: {
+        'expenseCategoriesKeys': expenseCategoriesKeys,
+        'expenseCategories': expenseCategories,
+        'title': this.title,
+        'currentMonth': this.currentMonth,
+        'currentYear': this.currentYear,
+      }
+    })
+
+    return await modal.present();
+  }
+
+  async viewReturnChart(returnCategoriesKeys: any[],returnCategories: {}){
+    const modal = await this.modalController.create({
+      component: IncomeChartComponent,
+      componentProps: {
+        'returnCategoriesKeys': returnCategoriesKeys,
+        'returnCategories': returnCategories,
+        'title': this.title,
+        'currentMonth': this.currentMonth,
+        'currentYear': this.currentYear,
+      }
+    })
+
     return await modal.present();
   }
 
