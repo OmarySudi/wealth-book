@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,NgZone } from '@angular/core';
 import {Months} from 'src/app/constants/constants'
 import { map} from 'rxjs/operators';
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
 import { StorageService } from 'src/app/services/storage/storage.service';
-import { FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { MonthlyExpensesComponent } from 'src/app/shared/components/monthly-expenses/monthly-expenses.component';
@@ -104,10 +103,11 @@ export class ReportComponent implements OnInit {
         this.totalMonthlyExpense = 0;
         this.totalMonthlyReturn = 0;
 
+      
         this.expenses = [];
 
         data.forEach(data=>{
-
+         
           Object.keys(data).map((key)=>{
 
             let expenseinterface: ExpenseInterface;
@@ -117,7 +117,7 @@ export class ReportComponent implements OnInit {
             this.expenses.unshift(expenseinterface);
 
             if(expenseinterface.category == "Expense"){
-              this.totalMonthlyExpense+=expenseinterface.amount;
+               this.totalMonthlyExpense+=expenseinterface.amount;
               if(this.expenseCategoriesMap.has(expenseinterface.type))
               {
                 let amount  = this.expenseCategoriesMap.get(expenseinterface.type)
@@ -212,6 +212,7 @@ export class ReportComponent implements OnInit {
               this.expenses.unshift(expenseinterface);
 
               if(expenseinterface.category == "Expense"){
+                
                 this.totalMonthlyExpense+=expenseinterface.amount;
                 if(this.expenseCategoriesMap.has(expenseinterface.type))
                 {
@@ -240,6 +241,7 @@ export class ReportComponent implements OnInit {
           })
         }
 
+
         this.loader = false;
         //this.loadingController.dismiss();
 
@@ -254,7 +256,7 @@ export class ReportComponent implements OnInit {
 
   
   ngOnInit() {
-
+    
   }
 
   onClickDate(){

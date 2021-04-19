@@ -51,7 +51,13 @@ export class StorageService {
 
       this.expensesRef.push(expense)
 
-    });
+    })//.then(()=>{
+    //   if(expense.category == "Expense"){
+    //     this.dataservice.setAddedExpense(expense)
+    //   }else{
+    //     this.dataservice.setAddedIncome(expense)
+    //   }
+    // });
   }
 
   async saveExpenseToLocalStorage(expense: ExpenseInterface): Promise<void>{

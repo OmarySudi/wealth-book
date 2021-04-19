@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,NgZone } from '@angular/core';
 import { StorageKeys } from './constants/constants';
 import { DatetimeService } from './services/datetime/datetime.service';
 import { StorageService } from './services/storage/storage.service';
@@ -21,6 +21,7 @@ export class AppComponent implements OnInit{
     private storageservice: StorageService,
     private angularAuth: AngularFireAuth,
     private router: Router,
+    private zone: NgZone,
   ) {
     
     this.checkIfUserLoggedIn().then(()=>{
@@ -51,9 +52,17 @@ export class AppComponent implements OnInit{
       if(user){
         this.dataservice.setEmail(user.email)
         this.dataservice.setName(user.displayName)
-        this.router.navigate(['/tabs/dashboard'])
+
+        this.zone.run(()=>{
+          this.router.navigate(['/tabs/dashboard'])
+        })
+        
       }else{
-        this.router.navigate(['/auth/login'])
+
+        this.zone.run(()=>{
+          this.router.navigate(['/auth/login'])
+        })
+      
       }
   })
   }

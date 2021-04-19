@@ -13,8 +13,13 @@ export class DataService {
   private readonly _monthlyExpenses: BehaviorSubject<ExpenseInterface[]>;
   private readonly _expenseTypes: BehaviorSubject<string[]>;
   private readonly _incomeTypes: BehaviorSubject<string[]>;
+  private readonly _expenseCategoryKeys: BehaviorSubject<{}>;
   private readonly todayTotalExpenses: BehaviorSubject<number>;
   private readonly todayTotalReturn: BehaviorSubject<number>;
+  private readonly monthlyTotalExpenses: BehaviorSubject<number>;
+  private readonly monthlyTotalReturn: BehaviorSubject<number>;
+  private readonly _addedExpense: BehaviorSubject<ExpenseInterface>;
+  private readonly _addedIncome: BehaviorSubject<ExpenseInterface>;
   private readonly currency: BehaviorSubject<string>;
   private readonly _email: BehaviorSubject<string>;
   private readonly _name: BehaviorSubject<string>;
@@ -24,8 +29,13 @@ export class DataService {
     this._monthlyExpenses = new BehaviorSubject<ExpenseInterface[]>(null);
     this._expenseTypes = new BehaviorSubject<string[]>(null);
     this._incomeTypes = new BehaviorSubject<string[]>(null);
+    this._expenseCategoryKeys =  new BehaviorSubject<{}>(null);
     this.todayTotalExpenses = new BehaviorSubject<number>(0);
     this.todayTotalReturn = new BehaviorSubject<number>(0);
+    this.monthlyTotalExpenses = new BehaviorSubject<number>(0);
+    this.monthlyTotalReturn = new BehaviorSubject<number>(0);
+    this._addedExpense = new BehaviorSubject<ExpenseInterface>(null);
+    this._addedIncome = new BehaviorSubject<ExpenseInterface>(null);
     this.currency = new BehaviorSubject<string>('');
     this._email = new BehaviorSubject<string>('');
     this._name = new BehaviorSubject<string>('');
@@ -207,6 +217,78 @@ export class DataService {
     return this._expenseTypes.getValue();
   }
 
+  getAddedExpenseSubscription(): BehaviorSubject<ExpenseInterface>{
+
+    return this._addedExpense;
+  }
+
+  async setAddedExpense(addedExpense: ExpenseInterface): Promise<void>{
+
+    return this._addedExpense.next(addedExpense);
+  }
+
+  async getAddedExpense(): Promise<ExpenseInterface>{
+
+    return this._addedExpense.getValue();
+  }
+
+  getAddeIncomeSubscription(): BehaviorSubject<ExpenseInterface>{
+
+    return this._addedIncome;
+  }
+
+  async setAddedIncome(addedIncome: ExpenseInterface): Promise<void>{
+
+    return this._addedIncome.next(addedIncome);
+  }
+
+  async getAddedIncome(): Promise<ExpenseInterface>{
+
+    return this._addedIncome.getValue();
+  }
+
+  getExpenseCategoryKeysSubscription(): BehaviorSubject<{}>{
+
+    return this._expenseCategoryKeys;
+  }
+
+  async setExpenseCategoryKeys(expenseCategoryKeys: {}): Promise<void>{
+
+    return this._expenseCategoryKeys.next(expenseCategoryKeys);
+  }
+
+  async getExpenseCategoryKeys(): Promise<{}>{
+
+    return this._expenseCategoryKeys.getValue();
+  }
+
+  getMonthlyTotalExpensesSubscription(): BehaviorSubject<number>{
+
+    return this.monthlyTotalExpenses;
+  }
+
+  async getMonthlyTotalExpenses(): Promise<number>{
+
+    return this.monthlyTotalExpenses.getValue();
+  }
  
+  async setMonthlyTotalExpenses(total: number): Promise<void>{
+
+    return this.monthlyTotalExpenses.next(total);
+  }
+
+  getMonthlyTotalReturnsSubscription(): BehaviorSubject<number>{
+
+    return this.monthlyTotalReturn;
+  }
+
+  async getMonthlyTotalReturns(): Promise<number>{
+
+    return this.monthlyTotalReturn.getValue();
+  }
  
+  async setMonthlyTotalRetuns(total: number): Promise<void>{
+
+    return this.monthlyTotalReturn.next(total);
+  }
 }

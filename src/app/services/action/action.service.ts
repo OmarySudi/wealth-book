@@ -77,6 +77,12 @@ export class ActionService {
       
       this.expensesRef = this.database.list('users/'+userid+'/'+expense.date);
 
+      if(expense.type == "Income"){
+        this.dataservice.setAddedIncome(expense);
+      }else {
+        this.dataservice.setAddedExpense(expense)
+      }
+
       return this.expensesRef.update(key,expense);
 
     });
