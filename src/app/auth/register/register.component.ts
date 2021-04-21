@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/app';
 import {NotificationService} from 'src/app/services/notification/notification.service'
+import {LoaderService} from 'src/app/services/loader/loader.service'
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,7 @@ export class RegisterComponent implements OnInit{
   constructor(
     private authservice: AuthService,
     private notification: NotificationService,
+    private loaderservice: LoaderService,
     ) 
     {
 
@@ -35,6 +37,7 @@ export class RegisterComponent implements OnInit{
   }
   
   doRegister(): void{
+    this.loaderservice.presentLoading();
 
     let registrationValues = this.registrationForm.value;
 
@@ -49,15 +52,18 @@ export class RegisterComponent implements OnInit{
                 user.updateProfile({displayName: registrationValues.name});
                 user.sendEmailVerification().then(()=>{
 
+                  this.loaderservice.dismiss();
                   this.notification.successfullRegistration('Confirm verification email before login','Successfully Registered');
 
                 }).catch((error)=> {
 
+                  this.loaderservice.dismiss();
                   this.notification.presentToast("There is problem sending verificatione email,try again latter","danger");
 
                 });    
           },
           error: (error)=>{
+            this.loaderservice.dismiss();
             switch(error.code){
               case 'auth/email-already-in-use':
                 this.notification.presentToast(error.message,"danger");
@@ -66,6 +72,9 @@ export class RegisterComponent implements OnInit{
                 case 'auth/weak-password':
                   this.notification.presentToast(error.message,"danger");
                   break;
+                default:
+                  this.notification.presentToast(error.message,"danger")
+                break;
             }
           }
         }

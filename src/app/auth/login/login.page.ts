@@ -13,6 +13,7 @@ import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { DataService } from 'src/app/services/data/data.service';
 import "@codetrix-studio/capacitor-google-auth";
 import { Plugins } from '@capacitor/core'
+import {LoaderService} from 'src/app/services/loader/loader.service'
 
 
 
@@ -38,6 +39,7 @@ export class LoginPage implements OnInit{
     private angularAuth: AngularFireAuth,
     private lodash: LodashService,
     private dataservice: DataService,
+    private loader: LoaderService,
     ) 
     { 
       console.log("in constructor"); 
@@ -53,7 +55,9 @@ export class LoginPage implements OnInit{
  }
 
   doLogin(): void{
-    
+
+    this.loader.presentLoading();
+
     let loginValues = this.loginForm.value;
     this.authservice.loginWithEmailAndPassword(loginValues.email,loginValues.password)
       .subscribe(
@@ -75,14 +79,18 @@ export class LoginPage implements OnInit{
 
             if(user.emailVerified){
 
+              this.loader.dismiss();
               this.route.navigate(['/tabs/dashboard']);
 
             }else {
+            this.loader.dismiss();
              this.notification.presentToast("Make sure to verify email before login","danger");
               
             }
           },
           error: (error)=>{
+            this.loader.dismiss();
+
             switch(error.code){
               case 'auth/wrong-password':
                 this.notification.presentToast("You have entered the wrong password","danger")

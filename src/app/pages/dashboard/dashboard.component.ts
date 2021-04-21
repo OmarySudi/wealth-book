@@ -338,7 +338,10 @@ getAllExpenses(date?: Date){
 
   setCurrency(){
     this.storage.getFromLocalStorage("WB_currency").then((res)=>{
-      this.currency = res.value;
+      if(this.lodash.isNull(res))
+        this.currency = "USD"
+      else
+        this.currency = res.value;
     });
   }
 

@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
    
     return new Promise((resolve,reject)=>{
       this.angularAuth.onAuthStateChanged((user: firebase.User)=>{
-        if(user){
+        if(user && user.emailVerified){
           this.dataservice.setEmail(user.email)
           this.dataservice.setName(user.displayName)
           resolve(true)
