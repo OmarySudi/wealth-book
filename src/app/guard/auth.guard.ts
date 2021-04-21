@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {DataService} from 'src/app/services/data/data.service'
+import {StorageService} from 'src/app/services/storage/storage.service'
 
 
 @Injectable({
@@ -14,7 +15,8 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   constructor(
     private router: Router, 
     private angularAuth: AngularFireAuth,
-    private dataservice: DataService
+    private dataservice: DataService,
+    private storageService: StorageService,
     ) {}
 
   canActivate(

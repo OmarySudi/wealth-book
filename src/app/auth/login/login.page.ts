@@ -4,12 +4,15 @@ import { AuthService } from '../auth/auth.service';
 import { map } from 'rxjs/operators';
 import {Router} from '@angular/router'
 import firebase from 'firebase/app';
+import {AngularFireAuth} from "@angular/fire/auth"
 import {NotificationService} from 'src/app/services/notification/notification.service'
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { DataService } from 'src/app/services/data/data.service';
+import "@codetrix-studio/capacitor-google-auth";
+import { Plugins } from '@capacitor/core'
 
 
 
@@ -32,6 +35,7 @@ export class LoginPage implements OnInit{
     private notification: NotificationService,
     private storage: StorageService,
     private database: AngularFireDatabase,
+    private angularAuth: AngularFireAuth,
     private lodash: LodashService,
     private dataservice: DataService,
     ) 
@@ -105,9 +109,28 @@ export class LoginPage implements OnInit{
     this.showPassword = !this.showPassword;
   }
 
-  googleSignin(){
-    this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
+  // googleSignin(){
+  //   this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
      
+  //     this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+
+  //     this.dataservice.setEmail(userCredential.user.email);
+  //     this.dataservice.setName(userCredential.user.displayName);
+
+  //     this.setCurrency(userCredential.user.uid);
+
+  //     this.route.navigate(['/tabs/dashboard']);
+
+  //   }).catch(()=>{
+
+  //     this.notification.presentToast("There is a google server error","danger");
+  //   });
+  // }
+ async googleSignin(){
+    let googleUser = await Plugins.GoogleAuth.signIn();
+    const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
+    this.angularAuth.signInAndRetrieveDataWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
+      
       this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
 
       this.dataservice.setEmail(userCredential.user.email);

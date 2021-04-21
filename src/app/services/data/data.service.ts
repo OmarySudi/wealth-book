@@ -23,6 +23,7 @@ export class DataService {
   private readonly currency: BehaviorSubject<string>;
   private readonly _email: BehaviorSubject<string>;
   private readonly _name: BehaviorSubject<string>;
+  private readonly _googleLogged: BehaviorSubject<boolean>;
 
   constructor(private httpClient: HttpClient) {
     this._expenses = new BehaviorSubject<ExpenseInterface[]>(null);
@@ -39,6 +40,7 @@ export class DataService {
     this.currency = new BehaviorSubject<string>('');
     this._email = new BehaviorSubject<string>('');
     this._name = new BehaviorSubject<string>('');
+    this._googleLogged = new BehaviorSubject<boolean>(false);
 
    }
 
@@ -290,5 +292,20 @@ export class DataService {
   async setMonthlyTotalRetuns(total: number): Promise<void>{
 
     return this.monthlyTotalReturn.next(total);
+  }
+
+  getGoogleLoggedSubscription(): BehaviorSubject<boolean>{
+
+    return this._googleLogged;
+  }
+
+  async getGoogleLogged(): Promise<boolean>{
+
+    return this._googleLogged.getValue();
+  }
+ 
+  async setGoogleLogged(logged: boolean): Promise<void>{
+
+    return this._googleLogged.next(logged);
   }
 }
