@@ -129,7 +129,7 @@ export class LoginPage implements OnInit{
  async googleSignin(){
     let googleUser = await Plugins.GoogleAuth.signIn();
     const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
-    this.angularAuth.signInAndRetrieveDataWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
+    this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
       
       this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
 
