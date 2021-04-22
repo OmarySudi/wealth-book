@@ -24,7 +24,11 @@
     <ion-item>
       <ion-input placeholder="amount" type="number" inputmode="decimal" formControlName="amount"></ion-input>
     </ion-item>
-    
+  
+    <ion-item>
+      <ion-input placeholder="description(Optional)" type="text" formControlName="description"></ion-input>
+    </ion-item>
+
     <ion-item *ngIf="isExpense && !checkboxChecked">
       <ion-label>Expense Type</ion-label>
       <ion-select value="brown" okText="Ok" cancelText="Cancel" [formControlName]="checkboxChecked?'':'type'" interface="popover">
@@ -39,16 +43,12 @@
       </ion-select>
     </ion-item>
 
-    <ion-item>
-      <ion-input placeholder="description" type="text" formControlName="description"></ion-input>
-    </ion-item>
-
     <ion-item *ngIf="checkboxChecked">
       <ion-input [placeholder]="isReturn?'Enter custom type of your income':'Enter custom type of your expense'" type="text" [formControlName]="checkboxChecked?'type':''"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="isReturn || isExpense" style="margin-top:20px">
-      <ion-label>Enter custom type if not listed</ion-label>
+      <ion-label>Enter custom type to be added to the list</ion-label>
       <ion-checkbox color="primary" slot="start" (click)="toggleChecked()"></ion-checkbox>
     </ion-item>
   

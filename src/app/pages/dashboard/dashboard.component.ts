@@ -71,6 +71,8 @@ export class DashboardComponent implements OnInit,OnDestroy{
     
     this.setCurrency();
 
+    this.setExpenseTypesArray()
+
     this.getAllExpenses();
 
     this.todayDate = 
@@ -86,6 +88,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
   ngOnInit() {
 
+    
     this.setExpenseTypesArray()
 
     this.dateSubscription = this.datetimeservice.getSelectedDateSubscription()

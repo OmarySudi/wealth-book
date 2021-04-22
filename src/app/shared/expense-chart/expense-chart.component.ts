@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { GoogleChartInterface } from 'ng2-google-charts';
 
 
+
 @Component({
   selector: 'app-expense-chart',
   templateUrl: './expense-chart.component.html',
@@ -17,20 +18,21 @@ export class ExpenseChartComponent implements OnInit {
   @Input('currentYear') currentYear: string;
 
   chartTitle: string;
+  loader: boolean;
 
-  constructor(private modalController:ModalController,) {
-
-   // this.loadChart();
-   }
+  constructor(private modalController:ModalController) {}
 
   dataTable: any[] = [["Expenses","Monthly/Annually expenses"]];
 
   public pieChart: GoogleChartInterface;
 
   ngOnInit() {
-
+    this.loader = true;
     this.loadChart();
-    
+  }
+
+  ionViewDidEnter() {
+   this.loader = false;
   }
 
   dismiss() {
@@ -38,10 +40,6 @@ export class ExpenseChartComponent implements OnInit {
       'dismissed': true
     });
   }
-
-  // ionViewDidEnter() {
-  //   this.loadChart();
-  // }
 
   loadChart(){
 
@@ -64,7 +62,6 @@ export class ExpenseChartComponent implements OnInit {
         width: '100%'
       },
     }
-
   }
 
 }

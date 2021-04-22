@@ -9,6 +9,10 @@
 </ion-header>
 <ion-content>
 
+  <div style="position:absolute; top: 50%; left:50%">
+    <ion-spinner name="dots" *ngIf="loader"></ion-spinner>
+  </div>
+  
   <ion-card class="welcome-card">
     <ion-card-content>
       <google-chart [data]="pieChart"></google-chart>

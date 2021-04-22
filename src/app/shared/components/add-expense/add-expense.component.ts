@@ -180,8 +180,8 @@ export class AddExpenseComponent implements OnInit {
 
         this.settingref.set(this.setting).then(()=>{
 
-          this.creditTypesArray = Object.keys(this.creditTypes).concat(this.setting.incomeTypes)
-          this.expenseTypesArray = Object.keys(this.expenseTypes).concat(this.setting.expenseTypes);
+          this.creditTypesArray = Object.keys(this.creditTypes);
+          this.expenseTypesArray = Object.keys(this.expenseTypes);
 
           this.setting.incomeTypes.forEach((data)=>{
             if(data !== '')

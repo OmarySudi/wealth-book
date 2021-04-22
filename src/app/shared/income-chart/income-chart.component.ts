@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { GoogleChartInterface } from 'ng2-google-charts';
+import {LoaderService} from 'src/app/services/loader/loader.service'
 
 @Component({
   selector: 'app-income-chart',
@@ -9,7 +10,13 @@ import { GoogleChartInterface } from 'ng2-google-charts';
 })
 export class IncomeChartComponent implements OnInit {
 
-  constructor(private modalController:ModalController,) { }
+  constructor(
+    private modalController:ModalController,
+    private loaderService: LoaderService,
+    ) 
+    { 
+
+    }
 
   @Input('returnCategories') returnCategories: {};
   @Input('returnCategoriesKeys') returnCategoriesKeys: any[];
@@ -18,13 +25,19 @@ export class IncomeChartComponent implements OnInit {
   @Input('currentYear') currentYear: string;
 
   chartTitle: string;
+  loader: boolean;
 
   dataTable: any[] = [["Income","Monthly/Annually income"]];
 
   public pieChart: GoogleChartInterface;
 
   ngOnInit() {
+    this.loader = true;
     this.loadChart()
+  }
+
+  ionViewDidEnter(){
+    this.loader = false;
   }
 
   dismiss() {
@@ -54,6 +67,5 @@ export class IncomeChartComponent implements OnInit {
         width: '100%'
       },
     }
-
   }
 }
