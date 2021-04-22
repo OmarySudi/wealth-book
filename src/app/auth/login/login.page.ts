@@ -12,8 +12,12 @@ import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { DataService } from 'src/app/services/data/data.service';
 import "@codetrix-studio/capacitor-google-auth";
-import { Plugins } from '@capacitor/core'
+import { FacebookLoginPlugin } from '@capacitor-community/facebook-login';
+import { Plugins, registerWebPlugin } from '@capacitor/core'
 import {LoaderService} from 'src/app/services/loader/loader.service'
+
+import { FacebookLogin } from '@capacitor-community/facebook-login';
+registerWebPlugin(FacebookLogin);
 
 
 
@@ -25,6 +29,9 @@ import {LoaderService} from 'src/app/services/loader/loader.service'
 export class LoginPage implements OnInit{
 
   public showPassword: boolean = false;
+  fbLogin: FacebookLoginPlugin;
+  user = null;
+  token = null;
 
   setting: Setting;
 
@@ -42,7 +49,9 @@ export class LoginPage implements OnInit{
     private loader: LoaderService,
     ) 
     { 
-      console.log("in constructor"); 
+      // console.log("in constructor"); 
+      const { FacebookLogin } = Plugins;
+      this.fbLogin = FacebookLogin;
     }
 
   loginForm: FormGroup = new FormGroup({
@@ -154,22 +163,86 @@ export class LoginPage implements OnInit{
     });
   }
 
-  facebookSignin(){
-    this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
+  // facebookSignin(){
+  //   this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
      
-      this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+  //     this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
 
-      this.dataservice.setEmail(userCredential.user.email);
-      this.dataservice.setName(userCredential.user.displayName);
+  //     this.dataservice.setEmail(userCredential.user.email);
+  //     this.dataservice.setName(userCredential.user.displayName);
 
-      this.setCurrency(userCredential.user.uid);
+  //     this.setCurrency(userCredential.user.uid);
 
-      this.route.navigate(['/tabs/dashboard']);
+  //     this.route.navigate(['/tabs/dashboard']);
 
-    }).catch(()=>{
+  //   }).catch(()=>{
 
-      this.notification.presentToast("There is a facebook server error","danger");
-    });
+  //     this.notification.presentToast("There is a facebook server error","danger");
+  //   });
+  // }
+
+  async facebookSignin(){
+    // this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
+     
+    //   this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+
+    //   this.dataservice.setEmail(userCredential.user.email);
+    //   this.dataservice.setName(userCredential.user.displayName);
+
+    //   this.setCurrency(userCredential.user.uid);
+
+    //   this.route.navigate(['/tabs/dashboard']);
+
+    // }).catch(()=>{
+
+    //   this.notification.presentToast("There is a facebook server error","danger");
+    // });
+    const FACEBOOK_PERMISSIONS = ['email', 'public_profile'];
+    const result = await this.fbLogin.login({ permissions: FACEBOOK_PERMISSIONS });
+   
+
+    if (result.accessToken && result.accessToken.userId) {
+      const credential = firebase.auth.FacebookAuthProvider.credential(result.accessToken.token)
+
+      this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
+      
+        this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+  
+        this.dataservice.setEmail(userCredential.user.email);
+        this.dataservice.setName(userCredential.user.displayName);
+  
+        this.setCurrency(userCredential.user.uid);
+  
+        this.route.navigate(['/tabs/dashboard']);
+  
+      }).catch(()=>{
+  
+        this.notification.presentToast("There is a google server error","danger");
+      });
+      
+    }else if(result.accessToken)
+    {
+      const credential = firebase.auth.FacebookAuthProvider.credential(result.accessToken.token)
+
+      this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
+      
+        this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+  
+        this.dataservice.setEmail(userCredential.user.email);
+        this.dataservice.setName(userCredential.user.displayName);
+  
+        this.setCurrency(userCredential.user.uid);
+  
+        this.route.navigate(['/tabs/dashboard']);
+  
+      }).catch(()=>{
+  
+        this.notification.presentToast("There is a google server error","danger");
+      });
+    }else {
+      // Login failed
+      this.notification.presentToast("There is a facebook server error during login","danger");
+    }
   }
 
   setCurrency(userid: string){

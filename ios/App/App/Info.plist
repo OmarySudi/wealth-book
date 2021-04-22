@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>ExpenseIncomeBook</string>
+        <string>ExpenseBook</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleURLTypes</key>
-	<array>
+	<!-- <array>
 		<dict>
 			<key>CFBundleURLName</key>
 			<string>com.getcapacitor.capacitor</string>
@@ -28,6 +28,23 @@
 				<string>capacitor</string>
 			</array>
 		</dict>
+	</array> -->
+	<array>
+	<dict>
+		<key>CFBundleURLSchemes</key>
+		<array>
+		<string>fb309372283904908</string>
+		</array>
+	</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>309372283904908</string>
+	<key>FacebookDisplayName</key>
+	<string>ExpenseBok</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	<string>fbapi</string>
+	<string>fbauth2</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
