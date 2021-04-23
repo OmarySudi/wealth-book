@@ -4,10 +4,23 @@ export enum StorageKeys{
 
 export enum ExpenseTypes{
     
-    General ="General",
-    Shopping ="Shopping",
-    Movie ="Movie",
-    Dinner = "Dinner"
+    Rent ="Rent",
+    Electricity ="Electricity",
+    Water ="Water",
+    Food = "Food",
+    Medical ="Medical",
+    Clothing ="Clothing",
+    Fee ="Fee",
+    Gasoline = "Gasoline",
+    Sanitation = "Sanitation",
+    AirTime = "AirTime",
+    Intenet = "Internet",
+    Landline = "Landline",
+    Movie = "Movie",
+    Travel_Expenses="Travel_Expenses",
+    Dining_Out="Dining_Out",
+    Alcohol = "Alcohol",
+
 }
 
 export enum Category{
