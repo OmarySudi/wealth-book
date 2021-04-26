@@ -4,6 +4,7 @@ import { SubscriptionLike } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireDatabase,AngularFireList, AngularFireObject} from '@angular/fire/database';
 import { ExpenseTypes } from 'src/app/constants/constants';
+import {HttpClient} from '@angular/common/http'
 import { CreditTypes } from 'src/app/constants/constants'
 import { Category } from 'src/app/constants/constants'
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
@@ -60,6 +61,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
   constructor(
     private modalController:ModalController,
     private dataservice: DataService,
+    private httpClient: HttpClient,
     private database: AngularFireDatabase,
     private datetimeservice: DatetimeService,
     private storage: StorageService,
@@ -321,7 +323,7 @@ getAllExpenses(date?: Date){
 
       if(data){
 
-        console.log(data);
+      
         this.loader = false;
         this.expenses = data;
         this.dataservice.setExpenesTotalAmount(data);

@@ -7,6 +7,7 @@ import {DataService} from 'src/app/services/data/data.service'
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import {LodashService} from 'src/app/services/lodash/lodash.service'
+import { SubscriptionLike } from 'rxjs';
 
 @Component({
   selector: 'app-change-currency',
@@ -21,6 +22,7 @@ export class ChangeCurrencyComponent implements OnInit {
   currencyKeys: string[];
   settingref: AngularFireObject<Setting>;
   setting: Setting;
+  currencyCodeSubscription: SubscriptionLike;
   temporarySetting: Setting;
 
   checkboxChecked: boolean;
@@ -48,10 +50,18 @@ export class ChangeCurrencyComponent implements OnInit {
       }
     )
 
-    this.dataservice.getCurrencyCodes().subscribe(data=>{
-     this.currencyObject = data;
-     this.currencyKeys = Object.keys(data);
-    })
+   
+    this.currencyCodeSubscription = this.dataservice.getCurrencyCodesSubscription()
+     .subscribe({
+       next: (codes)=>{
+
+       
+        this.currencyObject = codes
+        this.currencyKeys = Object.keys(codes);
+       },
+       error: ()=>{},
+       complete: ()=>{}
+     })
   }
 
   dismiss() {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {ExpenseInterface} from '../../interfaces/expenseinterface'
 import {HttpClient} from '@angular/common/http'
 import {map} from 'rxjs/operators'
@@ -13,6 +13,8 @@ export class DataService {
   private readonly _monthlyExpenses: BehaviorSubject<ExpenseInterface[]>;
   private readonly _expenseTypes: BehaviorSubject<string[]>;
   private readonly _incomeTypes: BehaviorSubject<string[]>;
+  private readonly _currencies: BehaviorSubject<{}>;
+  public currencyCodes: Observable<string[]>;
   private readonly _expenseCategoryKeys: BehaviorSubject<{}>;
   private readonly todayTotalExpenses: BehaviorSubject<number>;
   private readonly todayTotalReturn: BehaviorSubject<number>;
@@ -31,6 +33,8 @@ export class DataService {
     this._expenseTypes = new BehaviorSubject<string[]>(null);
     this._incomeTypes = new BehaviorSubject<string[]>(null);
     this._expenseCategoryKeys =  new BehaviorSubject<{}>(null);
+    this._currencies = new BehaviorSubject<{}>(null);
+    //this.currencyCodes = this._currencies.asObservable();
     this.todayTotalExpenses = new BehaviorSubject<number>(0);
     this.todayTotalReturn = new BehaviorSubject<number>(0);
     this.monthlyTotalExpenses = new BehaviorSubject<number>(0);
@@ -154,10 +158,11 @@ export class DataService {
     return total;
   }
 
-  getCurrencyCodes(){
+  getCurrencyCodesFromUrl(){
     return this.httpClient.get("https://openexchangerates.org/api/currencies.json",{responseType:'json'})
     .pipe(
       map(data=>{
+        
         return data;
       })
     )
@@ -307,5 +312,21 @@ export class DataService {
   async setGoogleLogged(logged: boolean): Promise<void>{
 
     return this._googleLogged.next(logged);
+  }
+
+
+  getCurrencyCodesSubscription(): BehaviorSubject<{}>{
+
+    return this._currencies;
+  }
+
+  async getCurrencyCodes(): Promise<{}>{
+
+    return this._currencies.getValue();
+  }
+ 
+  async setCurrencyCodes(currencyCodes: {}): Promise<void>{
+
+    return this._currencies.next(currencyCodes);
   }
 }

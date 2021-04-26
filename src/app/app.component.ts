@@ -54,6 +54,9 @@ export class AppComponent implements OnInit{
       if(user && user.emailVerified){
         this.dataservice.setEmail(user.email)
         this.dataservice.setName(user.displayName)
+        this.dataservice.getCurrencyCodesFromUrl().subscribe((data)=>{
+          this.dataservice.setCurrencyCodes(data)
+        })
 
         this.zone.run(()=>{
           this.router.navigate(['/tabs/dashboard'])
