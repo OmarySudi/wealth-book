@@ -96,6 +96,9 @@
           <ion-button (click)="presentEditModal(expense)">
             <ion-icon size="medium" name="pencil-outline"></ion-icon>
           </ion-button>
+          <ion-button (click)="presentEditModal(expense)">
+            <ion-icon size="medium" name="trash"></ion-icon>
+          </ion-button>
         </ion-buttons>
   
         <ion-text style="font-size:medium; margin-left:10px; margin-right:10px" [slot]="expense.category == 'Income'?'end':'start'"><b>{{expense.amount | customCurrency:currency }}</b></ion-text>

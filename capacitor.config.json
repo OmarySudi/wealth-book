@@ -2,7 +2,7 @@
   "appId": "com.sudiomary.ExpenseIncomeBook",
   "appName": "ExpenseBook",
   "bundledWebRuntime": false,
-  "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",
+  "linuxAndroidStudioPath": "/snap/bin/android-studio",
   "npmClient": "npm",
   "webDir": "www",
   "plugins": {
