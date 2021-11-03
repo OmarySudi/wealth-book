@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Plugins } from '@capacitor/core';
+import { Storage } from '@capacitor/storage';
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import { AngularFireDatabase,AngularFireList} from '@angular/fire/database';
 import { DataService } from '../data/data.service';
 import { DatetimeService } from '../datetime/datetime.service';
 import { LodashService } from '../lodash/lodash.service';
-import { Observable } from 'rxjs';
 
-import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +26,7 @@ export class StorageService {
   expenses?: ExpenseInterface[];
  
   async saveToLocalStorage(key:string,value:any): Promise<void> {
-    return await Plugins.Storage.set({
+    return await Storage.set({
       key,
       value: JSON.stringify({value})
     });
@@ -123,13 +121,13 @@ export class StorageService {
   }
 
   async getFromLocalStorage(key:string): Promise<any> {
-    const ret = await Plugins.Storage.get({ key});
+    const ret = await Storage.get({ key});
     
     return JSON.parse(ret.value);
   }
 
   async removeFromLocalStorage(key:string): Promise<void> {
-   return await Plugins.Storage.remove({ key});
+   return await Storage.remove({ key});
   }
 
   async clearLocalStorage(isReset?: Boolean): Promise<void> {
@@ -137,6 +135,6 @@ export class StorageService {
     if(isReset)
       this.dataservice.setExpenses(null);
 
-    return await Plugins.Storage.clear();
+    return await Storage.clear();
   }
 }

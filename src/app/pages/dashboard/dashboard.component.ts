@@ -12,6 +12,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { AddExpenseComponent } from 'src/app/shared/components/add-expense/add-expense.component';
+import { DeleteExpenseComponent} from 'src/app/shared/components/delete-expense/delete-expense.component';
 import { EditExpenseComponent } from 'src/app/shared/components/edit-expense/edit-expense.component';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
@@ -205,6 +206,15 @@ export class DashboardComponent implements OnInit,OnDestroy{
     return await modal.present();
   }
 
+  async presentDeleteModel(expense: any){
+    const modal = await this.modalController.create({
+      component: DeleteExpenseComponent,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'key': expense.key
+      }
+    });
+  }
 
  ngOnDestroy(): void{
 

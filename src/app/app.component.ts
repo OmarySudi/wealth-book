@@ -6,9 +6,6 @@ import { DataService} from './services/data/data.service'
 import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {Router} from '@angular/router'
-import { Plugins } from '@capacitor/core';
-const { App } = Plugins;
-
 
 @Component({
   selector: 'app-root',

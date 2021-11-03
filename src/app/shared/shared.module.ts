@@ -10,6 +10,7 @@ import { CategoryPipe} from 'src/app/pipes/category.pipe';
 import {CustomCurrencyPipe} from 'src/app/pipes/custom-currency.pipe';
 import { ChangeCurrencyComponent } from './components/change-currency/change-currency.component';
 import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-expenses.component';
+import { DeleteExpenseComponent } from './components/delete-expense/delete-expense.component';
 
 
 
@@ -17,6 +18,7 @@ import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-
   declarations: [
     AddExpenseComponent,
     EditExpenseComponent,
+    DeleteExpenseComponent,
     ChangeCurrencyComponent,
     MonthlyExpensesComponent,
     CatagoryPipe,

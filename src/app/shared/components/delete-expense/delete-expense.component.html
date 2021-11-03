@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Delete Item</ion-title>
+    <ion-button (click)="dismiss()" slot="end" fill="outline" color="light">
+      <ion-icon  name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <form [formGroup]="editExpenseForm">
+    <ion-label position="floating" color="danger" *ngIf="editExpenseForm.controls.amount.invalid && editExpenseForm.controls.amount.touched">
+      Amount is not valid
+    </ion-label>
+    <ion-item>
+      <ion-input placeholder="amount" type="number" inputmode="decimal" formControlName="amount"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-input placeholder="description" type="text" formControlName="description"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="category == 'Expense'">
+      <ion-label>Select type</ion-label>
+      <ion-select value="brown" okText="Ok" cancelText="Cancel" formControlName="type" interface="popover">
+          <ion-select-option [value]="type" *ngFor="let type of expenseTypesArray">{{type}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="category == 'Income'">
+      <ion-label>Select type</ion-label>
+      <ion-select value="brown" okTextexpression="Ok" cancelText="Cancel" formControlName="type" interface="popover">
+          <ion-select-option [value]="type" *ngFor="let type of creditTypesArray">{{type}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button (click)="editExpense()"  [color]="category == 'Income'?'new':'favorite'" [disabled]="!editExpenseForm.valid" size="large" expand="block" fill="solid" >Save</ion-button>
+   
+  </form> -->
+</ion-content>

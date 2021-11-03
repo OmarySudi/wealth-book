@@ -11,13 +11,10 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { DataService } from 'src/app/services/data/data.service';
-import "@codetrix-studio/capacitor-google-auth";
-import { FacebookLoginPlugin } from '@capacitor-community/facebook-login';
-import { Plugins, registerWebPlugin } from '@capacitor/core'
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import {LoaderService} from 'src/app/services/loader/loader.service'
+import { FacebookLogin} from '@capacitor-community/facebook-login';
 
-import { FacebookLogin } from '@capacitor-community/facebook-login';
-registerWebPlugin(FacebookLogin);
 
 
 
@@ -29,7 +26,6 @@ registerWebPlugin(FacebookLogin);
 export class LoginPage implements OnInit{
 
   public showPassword: boolean = false;
-  fbLogin: FacebookLoginPlugin;
   user = null;
   token = null;
 
@@ -49,9 +45,6 @@ export class LoginPage implements OnInit{
     private loader: LoaderService,
     ) 
     { 
-      // console.log("in constructor"); 
-      const { FacebookLogin } = Plugins;
-      this.fbLogin = FacebookLogin;
     }
 
   loginForm: FormGroup = new FormGroup({
@@ -144,7 +137,7 @@ export class LoginPage implements OnInit{
   //   });
   // }
  async googleSignin(){
-    let googleUser = await Plugins.GoogleAuth.signIn();
+    let googleUser = await GoogleAuth.signIn();
     const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
     this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
       
@@ -198,9 +191,8 @@ export class LoginPage implements OnInit{
     //   this.notification.presentToast("There is a facebook server error","danger");
     // });
     const FACEBOOK_PERMISSIONS = ['email', 'public_profile'];
-    const result = await this.fbLogin.login({ permissions: FACEBOOK_PERMISSIONS });
+    const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
    
-
     if (result.accessToken && result.accessToken.userId) {
       const credential = firebase.auth.FacebookAuthProvider.credential(result.accessToken.token)
 
