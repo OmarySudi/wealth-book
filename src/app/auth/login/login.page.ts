@@ -11,7 +11,7 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { DataService } from 'src/app/services/data/data.service';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+// import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import {LoaderService} from 'src/app/services/loader/loader.service'
 import { FacebookLogin} from '@capacitor-community/facebook-login';
 
@@ -119,28 +119,9 @@ export class LoginPage implements OnInit{
     this.showPassword = !this.showPassword;
   }
 
-  // googleSignin(){
-  //   this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
+  googleSignin(){
+    this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
      
-  //     this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-
-  //     this.dataservice.setEmail(userCredential.user.email);
-  //     this.dataservice.setName(userCredential.user.displayName);
-
-  //     this.setCurrency(userCredential.user.uid);
-
-  //     this.route.navigate(['/tabs/dashboard']);
-
-  //   }).catch(()=>{
-
-  //     this.notification.presentToast("There is a google server error","danger");
-  //   });
-  // }
- async googleSignin(){
-    let googleUser = await GoogleAuth.signIn();
-    const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
-    this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
-      
       this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
 
       this.dataservice.setEmail(userCredential.user.email);
@@ -155,6 +136,27 @@ export class LoginPage implements OnInit{
       this.notification.presentToast("There is a google server error","danger");
     });
   }
+
+//  async googleSignin(){
+//     GoogleAuth.init();
+//     let googleUser = await GoogleAuth.signIn();
+//     const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
+//     this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
+      
+//       this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
+
+//       this.dataservice.setEmail(userCredential.user.email);
+//       this.dataservice.setName(userCredential.user.displayName);
+
+//       this.setCurrency(userCredential.user.uid);
+
+//       this.route.navigate(['/tabs/dashboard']);
+
+//     }).catch(()=>{
+
+//       this.notification.presentToast("There is a google server error","danger");
+//     });
+//   }
 
   // facebookSignin(){
   //   this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
