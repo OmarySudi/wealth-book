@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController,AlertController } from '@ionic/angular';
 import { SubscriptionLike } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireDatabase,AngularFireList, AngularFireObject} from '@angular/fire/database';
@@ -9,10 +9,11 @@ import { CreditTypes } from 'src/app/constants/constants'
 import { Category } from 'src/app/constants/constants'
 import { ExpenseInterface } from 'src/app/interfaces/expenseinterface';
 import { DataService } from 'src/app/services/data/data.service';
+import { ActionService } from 'src/app/services/action/action.service';
+import {NotificationService} from 'src/app/services/notification/notification.service'
 import { DatetimeService } from 'src/app/services/datetime/datetime.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { AddExpenseComponent } from 'src/app/shared/components/add-expense/add-expense.component';
-import { DeleteExpenseComponent} from 'src/app/shared/components/delete-expense/delete-expense.component';
 import { EditExpenseComponent } from 'src/app/shared/components/edit-expense/edit-expense.component';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
@@ -61,8 +62,11 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
   constructor(
     private modalController:ModalController,
+    private alertController: AlertController,
     private dataservice: DataService,
     private httpClient: HttpClient,
+    private actionService: ActionService,
+    private notification: NotificationService,
     private database: AngularFireDatabase,
     private datetimeservice: DatetimeService,
     private storage: StorageService,
@@ -206,14 +210,35 @@ export class DashboardComponent implements OnInit,OnDestroy{
     return await modal.present();
   }
 
-  async presentDeleteModel(expense: any){
-    const modal = await this.modalController.create({
-      component: DeleteExpenseComponent,
-      cssClass: 'my-custom-class',
-      componentProps: {
-        'key': expense.key
-      }
+
+  async presentDeleteAlert(expense: any){
+    const alert = await this.alertController.create({
+      cssClass: 'delete-item-alert',
+      header: 'Dou you want to delete?',
+      //message: 'Message <strong>text</strong>!!!',
+      buttons: [
+        {
+          text: 'CANCEL',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'YES',
+          handler: () => {
+            console.log('Confirm Okay');
+              this.actionService.deleteItem(expense,expense.key).then(()=>{
+                this.notification.presentToast("Successfully deleted","success");
+              }).catch(()=>{
+                this.notification.presentToast("There is a problem occured, please try again later","danger");
+              });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 
  ngOnDestroy(): void{
