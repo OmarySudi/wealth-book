@@ -88,4 +88,17 @@ export class ActionService {
     });
 
   }
+
+  async deleteItem(expense: ExpenseInterface, key: string){
+    this.storageservice.getFromLocalStorage("WB_userid").then((res)=>{
+
+      let userid =  res.value;
+      
+      this.expensesRef = this.database.list('users/'+userid+'/'+expense.date);
+
+      return this.expensesRef.remove(key);
+
+    });
+  }
+
 }
