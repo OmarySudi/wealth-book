@@ -311,7 +311,7 @@ export class ReportComponent implements OnInit {
   getListOfYears(){
     let min = 2020
     let max = Number(this.datetimeservice.getCurrentYear());
-   
+    
     for (let i = min; i<=max; i++){
       this.years.push(i);
     }
