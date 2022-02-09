@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { BudgetComponent } from './budget.component';
 import { IonicModule } from '@ionic/angular';
 
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -11,6 +13,7 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
     RouterModule.forChild([{path:'',component:BudgetComponent}])
   ]
 })

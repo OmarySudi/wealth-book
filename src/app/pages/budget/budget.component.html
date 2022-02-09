@@ -1,7 +1,29 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Budget</ion-title>
+  <ion-toolbar color="new">
+    <ion-title class="ion-text-center">Your Monthly Budget</ion-title>
   </ion-toolbar>
+  <ion-row>
+    <ion-col size="6">
+      <ion-button (click)="selectedYear.open()" expand="block" fill="solid" color="new">
+        {{currentYear}}
+        <ion-item hidden>
+          <ion-select interface="popover" #selectedYear [(ngModel)]="currentYear" (ionChange)="changeSelectedYear(currentYear)">
+              <ion-select-option  *ngFor="let year of years">{{year}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button (click)="selectedValue.open()" expand="block" fill="solid" color="new">
+        {{currentMonth}}
+        <ion-item hidden>
+          <ion-select interface="popover" #selectedValue [(ngModel)]="currentMonth" (ionChange)="changeSelectedMonth(currentMonth)">
+              <ion-select-option  [value]="monthKeys[name]" *ngFor="let name of monthKeys">{{name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-button>
+    </ion-col>
+  </ion-row>
 
 </ion-header>
 
