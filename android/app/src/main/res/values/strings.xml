@@ -5,6 +5,4 @@
     <string name="package_name">com.sudiomary.ExpenseIncomeBook</string>
     <string name="custom_url_scheme">com.sudiomary.ExpenseIncomeBook</string>
     <string name="server_client_id">782264422963-ju5hg0iurfcbrarfp4b512qhonft7sad.apps.googleusercontent.com</string>
-    <string name="facebook_app_id">309372283904908</string>
-    <string name="fb_login_protocol_scheme">fb309372283904908</string>
 </resources>

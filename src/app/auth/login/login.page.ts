@@ -11,11 +11,9 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { DataService } from 'src/app/services/data/data.service';
-// import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import {LoaderService} from 'src/app/services/loader/loader.service'
-import { FacebookLogin} from '@capacitor-community/facebook-login';
-
-
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { isPlatform } from '@ionic/angular';
 
 
 @Component({
@@ -43,8 +41,12 @@ export class LoginPage implements OnInit{
     private lodash: LodashService,
     private dataservice: DataService,
     private loader: LoaderService,
-    ) 
+  ) 
     { 
+
+      if(!isPlatform('capacitor')){
+        GoogleAuth.init();
+      }
     }
 
   loginForm: FormGroup = new FormGroup({
@@ -119,47 +121,8 @@ export class LoginPage implements OnInit{
     this.showPassword = !this.showPassword;
   }
 
-  googleSignin(){
-    this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
-     
-      this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-
-      this.dataservice.setEmail(userCredential.user.email);
-      this.dataservice.setName(userCredential.user.displayName);
-
-      this.setCurrency(userCredential.user.uid);
-
-      this.route.navigate(['/tabs/dashboard']);
-
-    }).catch(()=>{
-
-      this.notification.presentToast("There is a google server error","danger");
-    });
-  }
-
-//  async googleSignin(){
-//     GoogleAuth.init();
-//     let googleUser = await GoogleAuth.signIn();
-//     const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
-//     this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
-      
-//       this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-
-//       this.dataservice.setEmail(userCredential.user.email);
-//       this.dataservice.setName(userCredential.user.displayName);
-
-//       this.setCurrency(userCredential.user.uid);
-
-//       this.route.navigate(['/tabs/dashboard']);
-
-//     }).catch(()=>{
-
-//       this.notification.presentToast("There is a google server error","danger");
-//     });
-//   }
-
-  // facebookSignin(){
-  //   this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
+  // googleSignin(){
+  //   this.authservice.loginWithGoogle().then((userCredential: firebase.auth.UserCredential)=>{
      
   //     this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
 
@@ -172,71 +135,16 @@ export class LoginPage implements OnInit{
 
   //   }).catch(()=>{
 
-  //     this.notification.presentToast("There is a facebook server error","danger");
+  //     this.notification.presentToast("There is a google server error","danger");
   //   });
   // }
 
-  async facebookSignin(){
-    // this.authservice.loginWithFacebook().then((userCredential: firebase.auth.UserCredential)=>{
-     
-    //   this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-
-    //   this.dataservice.setEmail(userCredential.user.email);
-    //   this.dataservice.setName(userCredential.user.displayName);
-
-    //   this.setCurrency(userCredential.user.uid);
-
-    //   this.route.navigate(['/tabs/dashboard']);
-
-    // }).catch(()=>{
-
-    //   this.notification.presentToast("There is a facebook server error","danger");
-    // });
-    const FACEBOOK_PERMISSIONS = ['email', 'public_profile'];
-    const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
-   
-    if (result.accessToken && result.accessToken.userId) {
-      const credential = firebase.auth.FacebookAuthProvider.credential(result.accessToken.token)
-
-      this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
+  googleSignin(){
+    
+    this.authservice.loginWithGoogle().then((user)=>{
+      console.log('user: '+JSON.stringify(user));
       
-        this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-  
-        this.dataservice.setEmail(userCredential.user.email);
-        this.dataservice.setName(userCredential.user.displayName);
-  
-        this.setCurrency(userCredential.user.uid);
-  
-        this.route.navigate(['/tabs/dashboard']);
-  
-      }).catch(()=>{
-  
-        this.notification.presentToast("There is a google server error","danger");
-      });
-      
-    }else if(result.accessToken)
-    {
-      const credential = firebase.auth.FacebookAuthProvider.credential(result.accessToken.token)
-
-      this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
-      
-        this.storage.saveToLocalStorage("WB_userid",userCredential.user.uid);
-  
-        this.dataservice.setEmail(userCredential.user.email);
-        this.dataservice.setName(userCredential.user.displayName);
-  
-        this.setCurrency(userCredential.user.uid);
-  
-        this.route.navigate(['/tabs/dashboard']);
-  
-      }).catch(()=>{
-  
-        this.notification.presentToast("There is a google server error","danger");
-      });
-    }else {
-      // Login failed
-      this.notification.presentToast("There is a facebook server error during login","danger");
-    }
+    })
   }
 
   setCurrency(userid: string){
