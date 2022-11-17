@@ -20,7 +20,6 @@ import { FacebookLogin } from '@capacitor-community/facebook-login';
 registerWebPlugin(FacebookLogin);
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
