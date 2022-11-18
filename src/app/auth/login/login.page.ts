@@ -11,7 +11,7 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Setting } from 'src/app/interfaces/setting';
 import { LodashService } from 'src/app/services/lodash/lodash.service';
 import { DataService } from 'src/app/services/data/data.service';
-import { GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
+import "@codetrix-studio/capacitor-google-auth";
 import { FacebookLoginPlugin } from '@capacitor-community/facebook-login';
 import { Plugins, registerWebPlugin } from '@capacitor/core'
 import {LoaderService} from 'src/app/services/loader/loader.service'
@@ -89,7 +89,7 @@ export class LoginPage implements OnInit{
 
               this.loader.dismiss();
               this.route.navigate(['/tabs/dashboard']);
-              
+
             }else {
             this.loader.dismiss();
              this.notification.presentToast("Make sure to verify email before login","danger");
@@ -143,7 +143,7 @@ export class LoginPage implements OnInit{
   //   });
   // }
  async googleSignin(){
-    let googleUser = await GoogleAuth.signIn();
+    let googleUser = await Plugins.GoogleAuth.signIn();
     const credential = firebase.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
     this.angularAuth.signInWithCredential(credential).then((userCredential: firebase.auth.UserCredential)=>{
       
