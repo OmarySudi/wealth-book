@@ -1,25 +1,22 @@
 {
-	"appId": "com.sudiomary.ExpenseIncomeBook",
-	"appName": "ExpenseBook",
-	"bundledWebRuntime": false,
-	"linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",
-	"npmClient": "npm",
-	"webDir": "www",
-	"plugins": {
-		"SplashScreen": {
-			"launchShowDuration": 0
-		},
-		"GoogleAuth": {
-			"scopes": [
-				"profile",
-				"email"
-			],
-			"serverClientId": "782264422963-ju5hg0iurfcbrarfp4b512qhonft7sad.apps.googleusercontent.com",
-			"forceCodeForRefreshToken": true
-		},
-		"cordova": {}
-	},
-	"server": {
-		"url": "http://192.168.1.104:8101"
-	}
+  "appId": "com.sudiomary.ExpenseIncomeBook",
+  "appName": "ExpenseBook",
+  "bundledWebRuntime": false,
+  "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "GoogleAuth": {
+      "scopes": [
+        "profile",
+        "email"
+      ],
+      "serverClientId": "782264422963-ju5hg0iurfcbrarfp4b512qhonft7sad.apps.googleusercontent.com",
+      "forceCodeForRefreshToken": true
+  },
+  "cordova": {}
+}
 }
