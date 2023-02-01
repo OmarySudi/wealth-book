@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:782264422963:android:790ab1cd7ac6e67099c946",
+        "mobilesdk_app_id": "1:782264422963:android:8b560735e8773bd599c946",
         "android_client_info": {
           "package_name": "com.sudiomary.ExpenseIncomeBook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "782264422963-1r6ljkb7o77uc1a3din3enhdnu1evp2h.apps.googleusercontent.com",
+          "client_id": "782264422963-6hig95t26fcq56fs4kqks16omt7hh4lg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.sudiomary.ExpenseIncomeBook",
-            "certificate_hash": "4b151b7d94e91fadedfaf031127fef5f9fd396d6"
+            "certificate_hash": "9912d9ecb7a8332f60f888b9e3472220685f0d14"
           }
         },
         {
@@ -29,7 +29,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB8Rlz13UH1lwKFqVpGsQhDVhJnlDNGBV0"
+          "current_key": "AIzaSyB5v17M90fz9IdVw-HW543_sTYgp-zB2dM"
         }
       ],
       "services": {
@@ -40,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "782264422963-jhq3a6mb93nnhs0ibo0ea2hjkjrd4ba9.apps.googleusercontent.com",
+              "client_id": "782264422963-5qt05o45q2k4r89v89lucoo2huupdf55.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.sudiomary.expenseIncomeBook"
+                "bundle_id": "com.sudiomary.ExpenseIncomeBook"
               }
             }
           ]
