@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">ExpenseBook</string>
-    <string name="title_activity_main">ExpenseBook</string>
-    <string name="package_name">com.sudiomary.ExpenseIncomeBook</string>
-    <string name="custom_url_scheme">com.sudiomary.ExpenseIncomeBook</string>
-    <string name="server_client_id">782264422963-ju5hg0iurfcbrarfp4b512qhonft7sad.apps.googleusercontent.com</string>
-</resources>

@@ -31,7 +31,6 @@
     "@capacitor/core": "^3.4.3",
     "@capacitor/ios": "^2.4.6",
     "@capacitor/storage": "^1.2.5",
-    "@codetrix-studio/capacitor-google-auth": "^3.0.2",
     "@ionic/angular": "^5.5.2",
     "firebase": "^7.0 || ^8.0",
     "lodash": "^4.17.21",

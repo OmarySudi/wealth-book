@@ -6,7 +6,6 @@ import { LodashService } from 'src/app/services/lodash/lodash.service';
 import {Router} from '@angular/router'
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Injectable({
   providedIn: 'root'
@@ -51,13 +50,8 @@ export class AuthService {
     }));
   }
 
-  // loginWithGoogle(): Promise<firebase.auth.UserCredential>{
-  //   return this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  // }
-
-
-  async loginWithGoogle(){
-    return await GoogleAuth.signIn();
+  loginWithGoogle(): Promise<firebase.auth.UserCredential>{
+    return this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   requestResetPasswordLink(email: string){
